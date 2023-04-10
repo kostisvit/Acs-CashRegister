@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'tameiaki',
+    'encrypted_model_fields',
+    'import_export',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -132,3 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+FIELD_ENCRYPTION_KEY = b'Bf_PvPcsraNGd22hndI83FzKwztXLrdxQAZH0jWExIw='
