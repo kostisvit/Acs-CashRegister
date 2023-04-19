@@ -12,4 +12,28 @@
   <a href="{% url 'login' %}">Log In</a> |
   <a href="{% url 'signup' %}">Sign Up</a>
 {% endif %}
+<div class="container mt-5">
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for customer in customers %}
+          <tr>
+              <td>{{ customer.id|safe}}</td>
+              {% comment %} <td>{{ user.name }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.phone }}</td> {% endcomment %}
+          </tr>
+          {% endfor %}    
+      </tbody>
+  </table>
+</div>
 {% endblock %}
