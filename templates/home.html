@@ -4,12 +4,32 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-{% if user.is_authenticated %}
+<!-- {% if user.is_authenticated %}
   Hi {{ user.username }}!
   <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a> |
   <a href="{% url 'signup' %}">Sign Up</a>
-{% endif %}
+{% endif %} -->
+<div class="container mt-5">
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for item in data %}
+          <tr>
+            <td>{{ item.first_name }}</td>
+
+          {% endfor %}    
+      </tbody>
+  </table>
+</div>
 {% endblock %}
