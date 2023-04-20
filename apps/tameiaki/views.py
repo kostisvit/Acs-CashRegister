@@ -29,4 +29,4 @@ def customers(request):
         'data': data,
     }
     print(customers)
-    return render(request, "home.html", context)
+    return render(request, "customer.html", context)

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- {% if user.is_authenticated %}
+  Hi {{ user.username }}!
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a> |
+  <a href="{% url 'signup' %}">Sign Up</a>
+{% endif %} -->
+<div class="mt-5">
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>Όνομα</th>
+              <th>Επώνυμο</th>
+              <th>Τίτλος Εταιρείας</th>
+              <th>Κατηγορία</th>
+              <th>Διεύθυνση</th>
+              <th>ΑΦΜ</th>
+              <th>Τηλ. Επικοιν.</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for item in data %}
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.first_name }}</td>
+            <td>{{ item.last_name }}</td>
+            <td>{{ item.company_name }}</td>
+            <td>{{ item.company_type }}</td>
+            <td>{{ item.company_address }}</td>
+            <td>{{ item.company_afm }}</td>
+            <td>{{ item.phone_number }}</td>
+
+          {% endfor %}    
+      </tbody>
+  </table>
+</div>
+{% endblock %}

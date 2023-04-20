@@ -12,24 +12,34 @@
   <a href="{% url 'login' %}">Log In</a> |
   <a href="{% url 'signup' %}">Sign Up</a>
 {% endif %} -->
-<div class="container mt-5">
+<!-- <div class="container mt-5">
   <table class="table">
       <thead>
           <tr>
               <th>Id</th>
-              <th>Name</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Phone</th>
+              <th>Όνομα</th>
+              <th>Επώνυμο</th>
+              <th>Τίτλος Εταιρείας</th>
+              <th>Κατηγορία</th>
+              <th>Διεύθυνση</th>
+              <th>ΑΦΜ</th>
+              <th>Τηλ. Επικοιν.</th>
           </tr>
       </thead>
       <tbody>
           {% for item in data %}
           <tr>
+            <td>{{ item.id }}</td>
             <td>{{ item.first_name }}</td>
+            <td>{{ item.last_name }}</td>
+            <td>{{ item.company_name }}</td>
+            <td>{{ item.company_type }}</td>
+            <td>{{ item.company_address }}</td>
+            <td>{{ item.company_afm }}</td>
+            <td>{{ item.phone_number }}</td>
 
           {% endfor %}    
       </tbody>
   </table>
-</div>
+</div> -->
 {% endblock %}
