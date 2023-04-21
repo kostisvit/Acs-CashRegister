@@ -1,13 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<!-- {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">Log Out</a></p>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">Log In</a> |
-  <a href="{% url 'signup' %}">Sign Up</a>
-{% endif %} -->
+<div class="float-right mb-3 mr-5">
+  <button type="button" class="btn btn-primary">Νέος Πελάτης</button>
+</div>
 <div class="mt-5">
   <table class="table">
       <thead>
@@ -26,16 +21,29 @@
           {% for item in data %}
           <tr>
             <td>{{ item.id }}</td>
-            <td>{{ item.first_name }}</td>
-            <td>{{ item.last_name }}</td>
-            <td>{{ item.company_name }}</td>
-            <td>{{ item.company_type }}</td>
-            <td>{{ item.company_address }}</td>
+            <td>{{ item.first_name|title }}</td>
+            <td>{{ item.last_name|title }}</td>
+            <td>{{ item.company_name|title }}</td>
+            <td>{{ item.company_type|title }}</td>
+            <td>{{ item.company_address|title }}</td>
             <td>{{ item.company_afm }}</td>
             <td>{{ item.phone_number }}</td>
 
           {% endfor %}    
       </tbody>
   </table>
+  <div class="pagination">
+    <span class="step-links">
+      {% if page.has_previous %}
+        <a href="?page={{ page.previous_page_number }}" class="btn btn-primary" role="button">Previous</a>
+      {% endif %}
+      <span class="current">
+        Page {{ page.number }} of {{ page.paginator.num_pages }}.
+      </span>
+      {% if page.has_next %}
+        <a href="?page={{ page.next_page_number }}" class="btn btn-primary" role="button">Next</a>
+      {% endif %}
+    </span>
+  </div>
 </div>
 {% endblock %}
