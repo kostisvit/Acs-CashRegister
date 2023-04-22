@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="float-right mb-3 mr-5">
+  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Νέος Εγγραφή</a>
+  <a href="#" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Εξαγωγή</a>
+</div>
+<div class="mt-5">
+  <table class="table">
+      <thead>
+          <tr>
+              <th>Πελάτης</th>
+              <th>Μοντέλο Ταμ.</th>
+              <th>Αρ. Μητρώου</th>
+              <th>Ημ. Δήλωσης</th>
+              <th>OS Version</th>
+              <th>New OS Version</th>
+              <th>Κατάσταση</th>
+              <th>Σημειώσεις</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for item in data %}
+          <tr>
+            <td>{{ item.customer|title }}</td>
+            <td>{{ item.cash_model }}</td>
+            <td>{{ item.cash_number }}</td>
+            <td>{{ item.register_date|date:"d-m-Y" }}</td>
+            <td>{{ item.old_os }}</td>
+            <td>{{ item.new_os }}</td>
+            <td>{{ item.status }}</td>
+            <td>{{ item.info }}</td>
+
+          {% endfor %}    
+      </tbody>
+  </table>
+  <div class="pagination">
+    <span class="step-links">
+      {% if page.has_previous %}
+        <a href="?page={{ page.previous_page_number }}" class="btn btn-primary" role="button">Previous</a>
+      {% endif %}
+      <span class="current">
+        Page {{ page.number }} of {{ page.paginator.num_pages }}.
+      </span>
+      {% if page.has_next %}
+        <a href="?page={{ page.next_page_number }}" class="btn btn-primary" role="button">Next</a>
+      {% endif %}
+    </span>
+  </div>
+</div>
+{% endblock %}

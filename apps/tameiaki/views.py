@@ -1,23 +1,9 @@
-# from django.shortcuts import render
-# from django.http import JsonResponse
-# import requests
-# # Create your views here.
-
-# def customers(request):
-#     #pull data from third party rest api
-#     response = requests.get('http://127.0.0.1:8280/customers')
-#     #convert reponse data into json
-#     data = response.json()
-#     data = {'data': data}
-#     print(data)
-#     return JsonResponse(data,safe=False, json_dumps_params={'ensure_ascii': False})
-
-
 from django.shortcuts import render
 import requests
 import json
-from django.core.paginator import Paginator, EmptyPage,\
-                                  PageNotAnInteger
+from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
+from .models import Cash
+
 # Create your views here.
 def customers(request):
     #pull data from third party rest api
@@ -40,4 +26,13 @@ def customers(request):
         'page': data,
     }
     print(context)
-    return render(request, "customer.html", context)
+    return render(request, "app/tameiaki/customer.html", context)
+
+
+
+def tameiaki(request):
+    tameiaki = Cash.objects.all()
+    context = {
+        'data': tameiaki
+    }
+    return render(request, 'app/tameiaki/tameiaki.html', context)
