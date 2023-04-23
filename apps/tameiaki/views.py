@@ -4,6 +4,7 @@ import json
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 from .models import Cash
 
+
 # Create your views here.
 def customers(request):
     #pull data from third party rest api
