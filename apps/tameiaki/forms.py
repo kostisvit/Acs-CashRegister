@@ -1,7 +1,7 @@
 from django import forms
 from .models import Cash
 
-class CashForm(forms.Form):
+class CashForm(forms.ModelForm):
     cash_model = forms.CharField(max_length=100, label='Μοντέλο Ταμειακής')
     cash_number = forms.EmailField(max_length=100, label='Αριθμός Μητρώου')
     register_date = forms.CharField(max_length=100)
@@ -12,3 +12,4 @@ class CashForm(forms.Form):
 
     class Meta:
       model = Cash
+      fields = ['cash_model', 'cash_number','register_date','old_os','new_os','status','info']

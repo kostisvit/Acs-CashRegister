@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'tameiaki',
     'encrypted_model_fields',
     'import_export',
+    'rest_framework',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
