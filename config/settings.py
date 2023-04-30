@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'encrypted_model_fields',
     'import_export',
     'rest_framework',
+    'crispy_forms',
+    'crispy_bootstrap4',
+    'django_filters',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
@@ -138,3 +141,7 @@ LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
 FIELD_ENCRYPTION_KEY = b'Bf_PvPcsraNGd22hndI83FzKwztXLrdxQAZH0jWExIw='
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"

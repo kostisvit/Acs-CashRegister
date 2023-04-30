@@ -1,15 +1,36 @@
 from django import forms
 from .models import Cash
+import requests
 
 class CashForm(forms.ModelForm):
+    customer = forms.ChoiceField(choices=[],label='Πελάτης')
     cash_model = forms.CharField(max_length=100, label='Μοντέλο Ταμειακής')
-    cash_number = forms.EmailField(max_length=100, label='Αριθμός Μητρώου')
-    register_date = forms.CharField(max_length=100)
-    old_os = forms.CharField(max_length=100, label='Old OS Version')
+    cash_number = forms.CharField(max_length=100, label='Αριθμός Μητρώου')
+    register_date = forms.DateField(required=False,label='Ημ. Δήλωσης')
+    old_os = forms.CharField(max_length=100, label='Old OS Version',required=False)
     new_os = forms.CharField(max_length=100, label='New OS Version')
-    status = forms.BooleanField(label='Κατάσταση')
-    info = forms.CharField(widget=forms.Textarea, label='Σημειώσεις')
+    status = forms.BooleanField(label='Κατάσταση(Ενεργή)',initial=True,required=False)
+    info = forms.CharField(widget=forms.Textarea, label='Σημειώσεις', required=False)
+
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        options = self.get_dropdown_options()
+        self.fields['customer'].choices = options
+        self.fields['register_date'].widget = forms.widgets.DateInput(
+            attrs={
+                'type': 'date', 'placeholder': 'yyyy-mm-dd (DOB)',
+                'class': 'form-control'
+                }
+            )
+
+    def get_dropdown_options(self):
+        response = requests.get('http://127.0.0.1:8280/customers')
+        if response.status_code == 200:
+            options = response.json()
+            return  [(option['company_name'], option['company_name']) for option in options]
+        return []
 
     class Meta:
       model = Cash
-      fields = ['cash_model', 'cash_number','register_date','old_os','new_os','status','info']
+      fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','status','info']

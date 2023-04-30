@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-  <h1>Create a New Post</h1>
-  <form method="post">
+  <div class="container">
+    <h1 class="mt-5" style="color:dodgerblue">Πελατολόγιο - Καταχώρηση Ταμειακής</h1>
+  <form method="post" class="mt-5">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create Post</button>
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Αποθήκευση</button>
   </form>
+</div>
 {% endblock %}
