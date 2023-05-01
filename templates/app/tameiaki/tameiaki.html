@@ -19,8 +19,12 @@
           </tr>
       </thead>
       <tbody>
-          {% for item in data %}
-          <tr>
+        {% for item in data %}
+          {% if item.status == False %}
+        <tr class="tbrows" style="background-color: red; color: white; font-weight: bolder;">
+          {% else %}
+        <tr class="tbrows">
+          {% endif %}
             <td>{{ item.customer|title }}</td>
             <td>{{ item.cash_model }}</td>
             <td>{{ item.cash_number }}</td>
