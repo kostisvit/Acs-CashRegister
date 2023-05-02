@@ -31,7 +31,11 @@
             <td>{{ item.register_date|date:"d-m-Y" }}</td>
             <td>{{ item.old_os }}</td>
             <td>{{ item.new_os }}</td>
-            <td>{{ item.status }}</td>
+            {% if item.status == True %}
+            <td style="color:green">Online</td>
+            {% else %}
+            <td>Offline
+            {% endif %}
             <td>{{ item.info }}</td>
 
           {% endfor %}    

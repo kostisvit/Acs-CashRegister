@@ -41,8 +41,20 @@ def customers(request):
 # LOAD all tameiakes
 def tameiaki(request):
     tameiaki = Cash.objects.all()
+    paginator = Paginator(tameiaki,12) # 3 posts in each page
+    data = request.GET.get('page')
+    try:
+        data = paginator.page(data)
+    except PageNotAnInteger:
+            # If page is not an integer deliver the first page
+            data = paginator.page(1)
+    except EmptyPage:
+            # If page is out of range deliver last page of results
+            data = paginator.page(paginator.num_pages)
+    
     context = {
-        'data': tameiaki
+        'data': data,
+        'page': data,
     }
     return render(request, 'app/tameiaki/tameiaki.html', context)
 
