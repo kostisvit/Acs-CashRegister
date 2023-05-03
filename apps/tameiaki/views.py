@@ -12,10 +12,10 @@ def customers(request):
     #pull data from third party rest api
     #response = requests.get('https://jsonplaceholder.typicode.com/users')
     try:
-        response = requests.get('http://127.0.0.1:8280/customers-api')
+        response = requests.get('http://host.docker.internal:8280/customers-api') # http://127.0.0.1:8280/customers-api(without container)
         #convert reponse data into json
         data = json.loads(response.content)
-        paginator = Paginator(data, 12) # 3 posts in each page
+        paginator = Paginator(data, 9) # 3 posts in each page
         data = request.GET.get('page')
         try:
             data = paginator.page(data)
@@ -41,7 +41,7 @@ def customers(request):
 # LOAD all tameiakes
 def tameiaki(request):
     tameiaki = Cash.objects.all()
-    paginator = Paginator(tameiaki,12) # 3 posts in each page
+    paginator = Paginator(tameiaki,9) # 3 posts in each page
     data = request.GET.get('page')
     try:
         data = paginator.page(data)
@@ -68,7 +68,7 @@ class CreatePostView(CreateView):
     
 
     def form_valid(self, form):
-        response = requests.get('http://127.0.0.1:8280/customers-api')
+        response = requests.get('http://host.docker.internal:8280/customers-api') # http://127.0.0.1:8280/customers-api(without container)
         api_id = response.json()
         instance = form.save(commit=False)
         instance.customer = api_id

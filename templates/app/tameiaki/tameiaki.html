@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
+<div class="float-left" style="padding-left:20px; color: #726E6D; font-weight:500">
+  <ul>
+    <li>Σύνολο Ταμειακών: {{cash}}</li>
+    <li>Online: {{cash_online}}</li>
+    <li>Offline: {{cash_offline}}</li>
+  </ul>
+</div>
 <div class="float-right mb-3 mr-5">
   <a href="{% url 'new-cash' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Νέος Εγγραφή</a>
   <a href="#" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Εξαγωγή</a>
 </div>
-<div class="mt-5">
+<div class="mt-5" style="padding-left:20px; padding-right:20px;">
   <table class="table">
       <thead>
           <tr>
@@ -21,7 +28,7 @@
       <tbody>
         {% for item in data %}
           {% if item.status == False %}
-        <tr class="tbrows" style="background-color: red; color: white; font-weight: bolder;">
+        <tr class="tbrows" style="background-color: red; color: white;">
           {% else %}
         <tr class="tbrows">
           {% endif %}
@@ -34,7 +41,7 @@
             {% if item.status == True %}
             <td style="color:green">Online</td>
             {% else %}
-            <td>Offline
+            <td style=" font-weight: bolder;">Offline
             {% endif %}
             <td>{{ item.info }}</td>
 

@@ -2,18 +2,20 @@
 <style>
   .navbar
   {
-      border-bottom:3px solid #000;
+      border-bottom:3px solid #0062CC;
+      background-color:white;
   }
   .nav-link {
-    color: #fff !important;
+    color: #726E6D !important;
+    font-weight: 500;
   }
   .btn-outline-success {
     color: #fff !important;
   }
 </style>
 
-<nav class="navbar navbar-expand-lg bg-primary">
-  <a class="navbar-brand" style="color: #fff; font-weight: bolder;" href="#">AcsServices</a>
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" style="color: #0062CC; font-weight: bolder;" href="#">AcsServices</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -46,14 +48,14 @@
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Αναζήτηση" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Αναζήτηση</button>
+      <button class="btn btn-primary my-2 my-sm-0" type="submit">Αναζήτηση</button>
     </form>
   </div>
   {% else %}
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/">Αρχική <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#" >Αρχική <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'login' %}">Πελάτες</a>
@@ -78,7 +80,7 @@
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Αναζήτηση" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Αναζήτηση</button>
+      <button class="btn btn-primary my-2 my-sm-0" type="submit">Αναζήτηση</button>
     </form>
   </div>
   {% endif %}
