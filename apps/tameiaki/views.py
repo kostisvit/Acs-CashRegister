@@ -15,6 +15,7 @@ def customers(request):
         response = requests.get('http://host.docker.internal:8280/customers-api') # http://127.0.0.1:8280/customers-api(without container)
         #convert reponse data into json
         data = json.loads(response.content)
+        count = len(data)
         paginator = Paginator(data, 9) # 3 posts in each page
         data = request.GET.get('page')
         try:
@@ -28,6 +29,7 @@ def customers(request):
         context = {
             'data': data,
             'page': data,
+            'count':count
         }
     except requests.exceptions.RequestException as e:
         # Handle the error here

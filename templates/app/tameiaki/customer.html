@@ -20,6 +20,9 @@
       </thead>
       <tbody>
           {% for item in data %}
+          {% if forloop.last %}
+          <p style="padding-left:20px; color: #726E6D; font-weight:500">Πελάτες: {{count}}</p>
+          {% endif %}
           <tr>
             <td>{{ item.id }}</td>
             <td>{{ item.first_name|title }}</td>
@@ -29,7 +32,6 @@
             <td>{{ item.company_address|title }}</td>
             <td>{{ item.company_afm }}</td>
             <td>{{ item.phone_number }}</td>
-
           {% endfor %}    
       </tbody>
   </table>
