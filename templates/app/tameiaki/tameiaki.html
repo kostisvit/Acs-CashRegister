@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 {% block content %}
+<form method="get">
+  {% csrf_token %}
+  <div class="well">
+    <div class="row">
+      <div class="form-group col-sm-4 col-md-3">
+        {{ my_Filter.form.customer.label_tag }}
+        {% render_field my_Filter.form.customer class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-3">
+        {{ my_Filter.form.cash_model.label_tag }}
+        {% render_field my_Filter.form.cash_model class="form-control" %}
+      </div>
+      <div class="form-group col-sm-4 col-md-2">
+        <button type="submit" class="btn btn-warning btn-dm" style="position: absolute; top:50%;">
+          <span class="fa fa-search">Search</span>
+        </button>
+    </div>
+  </div>
+</form>
+
 <div class="float-left" style="padding-left:20px; color: #726E6D; font-weight:500">
   <ul>
     <li>Σύνολο Ταμειακών: {{cash}}</li>
@@ -26,24 +47,24 @@
           </tr>
       </thead>
       <tbody>
-        {% for item in data %}
-          {% if item.status == False %}
+        {% for cash in data %}
+          {% if cash.status == False %}
         <tr class="tbrows" style="background-color: red; color: white;">
           {% else %}
         <tr class="tbrows">
           {% endif %}
-            <td>{{ item.customer|title }}</td>
-            <td>{{ item.cash_model }}</td>
-            <td>{{ item.cash_number }}</td>
-            <td>{{ item.register_date|date:"d-m-Y" }}</td>
-            <td>{{ item.old_os }}</td>
-            <td>{{ item.new_os }}</td>
+            <td>{{ cash.customer|title }}</td>
+            <td>{{ cash.cash_model }}</td>
+            <td>{{ cash.cash_number }}</td>
+            <td>{{ cash.register_date|date:"d-m-Y" }}</td>
+            <td>{{ cash.old_os }}</td>
+            <td>{{ cash.new_os }}</td>
             {% if item.status == True %}
             <td style="color:green">Online</td>
             {% else %}
             <td style=" font-weight: bolder;">Offline
             {% endif %}
-            <td>{{ item.info }}</td>
+            <td>{{ cash.info }}</td>
 
           {% endfor %}    
       </tbody>

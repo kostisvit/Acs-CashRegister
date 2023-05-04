@@ -6,6 +6,7 @@ from .models import Cash
 from .forms import CashForm
 from django.views.generic.edit import CreateView
 from django.http import JsonResponse
+from .filters import CashFilter
 
 # API GET request Customers
 def customers(request):
@@ -44,6 +45,8 @@ def customers(request):
 def tameiaki(request):
     tameiaki = Cash.objects.all()
     paginator = Paginator(tameiaki,9) # 3 posts in each page
+    my_Filter = CashFilter(request.GET, queryset=tameiaki)
+    data = my_Filter.qs
     data = request.GET.get('page')
     try:
         data = paginator.page(data)
@@ -57,6 +60,7 @@ def tameiaki(request):
     context = {
         'data': data,
         'page': data,
+        'my_Filter':my_Filter
     }
     return render(request, 'app/tameiaki/tameiaki.html', context)
 

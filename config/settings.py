@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'django_filters',
+    'widget_tweaks',
 ]
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
