@@ -5,7 +5,7 @@
   {% csrf_token %}
   <div class="well">
     <div class="row">
-      <div class="form-group col-sm-4 col-md-3">
+      <div class="form-group col-sm-4 col-md-3" style="padding-left:40px;">
         {{ my_Filter.form.customer.label_tag }}
         {% render_field my_Filter.form.customer class="form-control" %}
       </div>
@@ -29,10 +29,14 @@
   </ul>
 </div>
 <div class="float-right mb-3 mr-5">
-  <a href="{% url 'new-cash' %}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Νέος Εγγραφή</a>
-  <a href="#" class="btn btn-success btn-lg active" role="button" aria-pressed="true">Εξαγωγή</a>
+  <button id="refreshButton" class="btn btn-outline-info btn-sm"><i class="bi bi-arrow-clockwise"></i></button>
+  <a href="{% url 'new-cash' %}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Νέος Εγγραφή</a>
+  <a href="#" class="btn btn-success btn-sm active" role="button" aria-pressed="true">Εξαγωγή</a>
 </div>
-<div class="mt-5" style="padding-left:20px; padding-right:20px;">
+  <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+  <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+
+<div id="cashDiv" class="mt-5" style="padding-left:20px; padding-right:20px;">
   <table class="table">
       <thead>
           <tr>
@@ -83,4 +87,12 @@
     </span>
   </div>
 </div>
+<script type='text/javascript'>
+  const myDiv = document.getElementById("cashDiv");
+  const myButton = document.getElementById("refreshButton");
+  myButton.addEventListener("click", function() {
+    // Replace the contents of the div with new content
+   
+  });
+</script>
 {% endblock %}

@@ -13,7 +13,7 @@ def customers(request):
     #pull data from third party rest api
     #response = requests.get('https://jsonplaceholder.typicode.com/users')
     try:
-        response = requests.get('http://host.docker.internal:8280/customers-api') # http://127.0.0.1:8280/customers-api(without container)
+        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
         #convert reponse data into json
         data = json.loads(response.content)
         count = len(data)
@@ -74,7 +74,7 @@ class CreatePostView(CreateView):
     
 
     def form_valid(self, form):
-        response = requests.get('http://host.docker.internal:8280/customers-api') # http://127.0.0.1:8280/customers-api(without container)
+        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
         api_id = response.json()
         instance = form.save(commit=False)
         instance.customer = api_id
