@@ -1,20 +1,18 @@
 version: '3.7'
 
 services:
-
   web:
     build: .
-    environment:
-      MYENV: EXAMPLE
-    volumes:
-      - .:/acs_cash
-  web_migrate:
-    extends:
-      service: web
-    command: python manage.py migrate
-  web_run:
-    extends:
-      service: web
-    command: python manage.py runserver 0.0.0.0:8000
+    container_name: cash_web
     ports:
       - "8000:8000"
+    volumes:
+      - .:/web
+    command: python manage.py runserver 0.0.0.0:8000
+
+  # web_run:
+  #   extends:
+  #     service: web
+  #   command: python manage.py runserver 0.0.0.0:8000
+  #   ports:
+  #     - "8000:8000"

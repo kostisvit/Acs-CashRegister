@@ -21,6 +21,7 @@
   </div>
 </form>
 
+
 <div class="float-left" style="padding-left:20px; color: #726E6D; font-weight:500">
   <ul>
     <li>Σύνολο Ταμειακών: {{cash}}</li>
@@ -48,43 +49,52 @@
               <th>New OS Version</th>
               <th>Κατάσταση</th>
               <th>Σημειώσεις</th>
+              <th>Ενέργειες</th>
           </tr>
       </thead>
       <tbody>
-        {% for cash in data %}
-          {% if cash.status == False %}
+        {% for obj in object_list %}
+          {% if obj.status == False %}
         <tr class="tbrows" style="background-color: red; color: white;">
           {% else %}
         <tr class="tbrows">
           {% endif %}
-            <td>{{ cash.customer|title }}</td>
-            <td>{{ cash.cash_model }}</td>
-            <td>{{ cash.cash_number }}</td>
-            <td>{{ cash.register_date|date:"d-m-Y" }}</td>
-            <td>{{ cash.old_os }}</td>
-            <td>{{ cash.new_os }}</td>
-            {% if item.status == True %}
+            <td>{{ obj.customer|title }}</td>
+            <td>{{ obj.cash_model }}</td>
+            <td>{{ obj.cash_number }}</td>
+            <td>{{ obj.register_date|date:"d-m-Y" }}</td>
+            <td>{{ obj.old_os }}</td>
+            <td>{{ obj.new_os }}</td>
+            {% if obj.status == True %}
             <td style="color:green">Online</td>
             {% else %}
             <td style=" font-weight: bolder;">Offline
             {% endif %}
-            <td>{{ cash.info }}</td>
+            <td>{{ obj.info|default_if_none:"-"  }}</td>
+            <td><a href="{% url 'edit-cash' obj.id%}"> 
+              <span><i class="bi bi-pencil-square" style="color: #726E6D;"></i></span></a></td>
 
           {% endfor %}    
       </tbody>
   </table>
   <div class="pagination">
     <span class="step-links">
-      {% if page.has_previous %}
-        <a href="?page={{ page.previous_page_number }}" class="btn btn-primary" role="button">Previous</a>
-      {% endif %}
-      <span class="current">
-        Page {{ page.number }} of {{ page.paginator.num_pages }}.
-      </span>
-      {% if page.has_next %}
-        <a href="?page={{ page.next_page_number }}" class="btn btn-primary" role="button">Next</a>
-      {% endif %}
+      {% if is_paginated %}
+    <div class="pagination">
+      <span class="step-links">
+          {% if page_obj.has_previous %}
+              <a href="?{{ query_params }}&page={{ page_obj.previous_page_number }}" class="btn btn-primary" role="button">previous</a>
+          {% endif %}
+
+          <span class="current-page">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+
+          {% if page_obj.has_next %}
+              <a href="?{{ query_params }}&page={{ page_obj.next_page_number }}" class="btn btn-primary" role="button">next</a>
+          {% endif %}
     </span>
+    {% endif %}
   </div>
 </div>
 <script type='text/javascript'>
