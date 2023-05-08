@@ -8,11 +8,13 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 from django.http import JsonResponse
 from .filters import CashFilter
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
 
 # API GET request Customers
+@login_required
 def customers(request):
-    #pull data from third party rest api
-    #response = requests.get('https://jsonplaceholder.typicode.com/users')
     try:
         response = requests.get('http://127.0.0.1:8280/customer-api') # http://127.0.0.1:8280/customer-api(without container)
         #convert reponse data into json
@@ -42,6 +44,7 @@ def customers(request):
 
 
 # LOAD all tameiakes
+@method_decorator(login_required, name='dispatch')
 class TameiakiFilterView(ListView):
     model = Cash
     template_name = 'app/tameiaki/tameiaki.html'
@@ -59,6 +62,7 @@ class TameiakiFilterView(ListView):
 
 
 # Create new tameiaki entry
+@method_decorator(login_required, name='dispatch')
 class CreatePostView(CreateView):
     model = Cash
     form_class = CashForm
@@ -77,6 +81,7 @@ class CreatePostView(CreateView):
 
 
 # Update view tameiaki
+@method_decorator(login_required, name='dispatch')
 class CashUpdateView(UpdateView):
     model = Cash
     form_class = CashForm
