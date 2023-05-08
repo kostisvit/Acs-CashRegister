@@ -3,13 +3,13 @@
 {% block content %}
 <form method="get">
   {% csrf_token %}
-  <div class="well">
+  <div class="well" style="margin-top: 15px;">
     <div class="row">
       <div class="form-group col-sm-4 col-md-3" style="padding-left:40px;">
         {{ my_Filter.form.customer.label_tag }}
         {% render_field my_Filter.form.customer class="form-control" %}
       </div>
-      <div class="form-group col-sm-4 col-md-3">
+      <div class="form-group col-sm-2 col-md-2">
         {{ my_Filter.form.cash_model.label_tag }}
         {% render_field my_Filter.form.cash_model class="form-control" %}
       </div>
