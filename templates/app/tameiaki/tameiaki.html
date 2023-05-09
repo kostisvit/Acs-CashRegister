@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
+{% block tab-title %}Ταμειακές | {% endblock %}
 {% block content %}
 <form method="get">
   {% csrf_token %}
@@ -18,7 +19,7 @@
         {% render_field my_Filter.form.status class="form-control" %}
       </div>
       <div class="form-group col-sm-4 col-md-2">
-        <button type="submit" class="btn btn-primary" style="position: absolute; top:50%;">
+        <button type="submit" class="btn btn-warning" style="position: absolute; top:44%;">
           <span class="fa fa-search">Αναζήτηση</span>
         </button>
     </div>
@@ -28,7 +29,7 @@
 
 <div class="float-left" style="padding-left:20px; color: #726E6D; font-weight:500">
   <ul>
-    <li>Σύνολο Ταμειακών: {{cash}}</li>
+    <li>Ταμειακές: {{cash}}</li>
     <li>Online: {{cash_online}}</li>
     <li>Offline: {{cash_offline}}</li>
   </ul>
