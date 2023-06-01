@@ -2,8 +2,12 @@ import os
 import sys
 from pathlib import Path
 import environ
-# Initialise environment variables
 
+# Initialise environment variables
+from environs import Env
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -154,3 +158,7 @@ CAPTCHA_FONT_SIZE = 30
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
+
+#AES_KEY_ENCRYPTION_KEY
+
+FIELD_ENCRYPTION_KEY = env.str("FIELD_ENCRYPTION_KEY")
