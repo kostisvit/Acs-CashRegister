@@ -53,6 +53,7 @@
               <th>OS Version</th>
               <th>New OS Version</th>
               <th>Κατάσταση</th>
+              <th>AES_KEY</th>
               <th>Σημειώσεις</th>
               <th>Ενέργειες</th>
           </tr>
@@ -75,6 +76,7 @@
             {% else %}
             <td style=" font-weight: bolder;">Offline
             {% endif %}
+            <td>{{ obj.aes_key }}</td>
             <td>{{ obj.info|default_if_none:"-"  }}</td>
             <td><a href="{% url 'edit-cash' obj.id%}"> 
               <span><i class="bi bi-pencil-square" style="color: #726E6D;"></i></span></a></td>

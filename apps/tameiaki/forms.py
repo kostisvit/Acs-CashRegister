@@ -10,6 +10,7 @@ class CashForm(forms.ModelForm):
     old_os = forms.CharField(max_length=100, label='Old OS Version',required=False)
     new_os = forms.CharField(max_length=100, label='New OS Version')
     status = forms.BooleanField(label='Κατάσταση(Ενεργή)',initial=True,required=False)
+    aes_key = forms.CharField(max_length=100, label='AES Key', required=False)
     info = forms.CharField(widget=forms.Textarea, label='Σημειώσεις', required=False)
 
 
@@ -33,4 +34,4 @@ class CashForm(forms.ModelForm):
 
     class Meta:
       model = Cash
-      fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','status','info']
+      fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','status','aes_key','info']
