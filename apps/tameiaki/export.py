@@ -15,7 +15,7 @@ class CashExport(View):
 
         # Create a workbook and add a worksheet
         workbook = xlwt.Workbook(encoding='utf-8')
-        worksheet = workbook.add_sheet('Persons')
+        worksheet = workbook.add_sheet('Cash')
 
         # Write headers
         headers = ['Πελάτης', 'Μοντέλο Ταμ.', 'Αρ. Μητρώου','Ημ. Δήλωσης','OS Version','New OS Version','Κατάσταση','AES_Key','Σημειώσεις']
@@ -28,12 +28,12 @@ class CashExport(View):
             worksheet.write(row, 0, cash.customer)
             worksheet.write(row, 1, cash.cash_model)
             worksheet.write(row, 2, cash.cash_number)
-            worksheet.write(row, 0, cash.register_date)
-            worksheet.write(row, 0, cash.old_os)
-            worksheet.write(row, 0, cash.new_os)
-            worksheet.write(row, 0, cash.aes_key)
-            worksheet.write(row, 0, cash.status)
-            worksheet.write(row, 0, cash.info)
+            worksheet.write(row, 3, cash.register_date)
+            worksheet.write(row, 4, cash.old_os)
+            worksheet.write(row, 5, cash.new_os)
+            worksheet.write(row, 6, cash.status)
+            worksheet.write(row, 7, cash.aes_key)
+            worksheet.write(row, 8, cash.info)
             
             row += 1
 
