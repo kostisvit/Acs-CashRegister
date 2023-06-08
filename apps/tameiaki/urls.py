@@ -14,5 +14,5 @@ urlpatterns = [
     # update
     path('update/<uuid:pk>', views.CashUpdateView.as_view(), name='edit-cash'),
     # export
-    path('export-xls/', CashExport.as_view(), name='export-cash'),
+    path('export-xls-tameiakes/', CashExport.as_view(), name='export-cash'),
 ]

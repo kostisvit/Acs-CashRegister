@@ -76,9 +76,15 @@
             <td style=" font-weight: bolder;">Offline
             {% endif %}
             <td>{{ obj.info|default_if_none:"-"  }}</td>
+            {% if obj.status == True %}
             <td><a href="{% url 'edit-cash' obj.id%}"> 
-              <span><i class="bi bi-pencil-square" style="color: #726E6D;"></i></span></a></td>
-
+              <span><i class="bi bi-pencil-square" style="color: #726E6D;"></i></span></a>
+            </td>
+              {% else %}
+              <td><a href="{% url 'edit-cash' obj.id%}"> 
+                <span><i class="bi bi-pencil-square" style="color: white;"></i></span></a>
+              </td>
+              {% endif %}
           {% endfor %}    
       </tbody>
   </table>
