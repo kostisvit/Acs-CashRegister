@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+</head>
+<body>
+<div class="container mt-5 pt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Εξαγωγή σε...</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <p class="m-0">Please select format of file.</p>
+                        <div class="row">
+                            <div class="col-md-9">
+                                {% csrf_token %}
+                                <select name="file-format" class="form-control my-3">
+                                    <option selected>Choose format...</option>
+                                    <option>CSV</option>
+                                    <option>JSON</option>
+                                    <option>XLS (Excel)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mt-3 text-right">
+                                <button class="btn btn-primary" type="submit">Export</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

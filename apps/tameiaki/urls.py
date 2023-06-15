@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import CashExport
+from .views import CashExport,Export_data
 
 
 
@@ -14,5 +14,5 @@ urlpatterns = [
     # update
     path('update/<uuid:pk>', views.CashUpdateView.as_view(), name='edit-cash'),
     # export
-    path('export-xls-tameiakes/', CashExport.as_view(), name='export-cash'),
+    path('export-xls-tameiakes/', views.Export_data, name='export_data'),
 ]

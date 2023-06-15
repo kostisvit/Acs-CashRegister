@@ -1,8 +1,10 @@
 from django.http import HttpResponse
 from django.views import View
 import xlwt
-
 from .models import Cash
+from django.http import HttpResponse
+from django.shortcuts import render
+from .resources import CashResource
 
 class CashExport(View):
     def get(self, request, *args, **kwargs):
@@ -40,3 +42,26 @@ class CashExport(View):
         # Save the workbook to the response
         workbook.save(response)
         return response
+    
+    
+
+def Export_data(request):
+    if request.method == 'POST':
+        # Get selected option from form
+        file_format = request.POST['file-format']
+        employee_resource = CashResource()
+        dataset = employee_resource.export()
+        if file_format == 'CSV':
+            response = HttpResponse(dataset.csv, content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="exported_data.csv"'
+            return response        
+        elif file_format == 'JSON':
+            response = HttpResponse(dataset.json, content_type='application/json')
+            response['Content-Disposition'] = 'attachment; filename="exported_data.json"'
+            return response
+        elif file_format == 'XLS (Excel)':
+            response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename="exported_data.xls"'
+            return response   
+
+    return render(request, 'app/tameiaki/export.html')
