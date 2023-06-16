@@ -2,11 +2,12 @@
 {% load widget_tweaks %}
 {% block tab-title %}Ταμειακές | {% endblock %}
 {% block content %}
+<body >
 <form method="get">
   {% csrf_token %}
   <div class="well" style="margin-top: 15px;">
     <div class="row">
-      <div class="form-group col-sm-2 col-md-2" style="padding-left:40px;">
+      <div class="form-group col-sm-2 col-md-2">
         {{ my_Filter.form.customer.label_tag }}
         {% render_field my_Filter.form.customer class="form-control" %}
       </div>
@@ -27,7 +28,7 @@
 </form>
 
 
-<div class="float-left" style="padding-left:20px; color: #726E6D; font-weight:500">
+<div class="float-left" style="color: #726E6D; font-weight:500">
   <ul>
     <li>Ταμειακές: {{cash}}</li>
     <li>Online: {{cash_online}}</li>
@@ -42,7 +43,7 @@
   <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
   <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
 
-<div id="cashDiv" class="mt-5" style="padding-left:20px; padding-right:20px;">
+<div id="cashDiv" class="mt-5" >
   <table class="table">
       <thead>
           <tr>
@@ -118,4 +119,5 @@
    
   });
 </script>
+</body>
 {% endblock %}
