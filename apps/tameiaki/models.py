@@ -11,6 +11,7 @@ class Cash(models.Model):
     register_date = models.DateField(null=True,blank=True)
     old_os = models.CharField(max_length=50,null=True,blank=True)
     new_os = models.CharField(max_length=50,null=True,blank=True)
+    update_date = models.DateField(null=True,blank=True)
     aes_key = EncryptedCharField(max_length=150,null=True, blank=True)
     status = models.BooleanField(default=True, blank=True,null=True)
     info = models.TextField(blank=True,null=True)

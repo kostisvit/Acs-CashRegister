@@ -54,6 +54,7 @@
               <th>OS Version</th>
               <th>New OS Version</th>
               <th>Κατάσταση</th>
+              <th>Ημ. Αναβάθ.</th>
               <th>AES_KEY</th>
               <th>Σημειώσεις</th>
               <th>Ενέργειες</th>
@@ -77,7 +78,8 @@
             {% else %}
             <td style=" font-weight: bolder;">Offline
             {% endif %}
-            <td>{{ obj.aes_key }}</td>
+            <td>{{ obj.update_date|default_if_none:"-"}}</td>
+            <td>{{ obj.aes_key|default_if_none:"-" }}</td>
             <td>{{ obj.info|default_if_none:"-"  }}</td>
             {% if obj.status == True %}
             <td><a href="{% url 'edit-cash' obj.id%}"> 
