@@ -3,6 +3,9 @@ import sys
 from pathlib import Path
 import environ
 
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
 # Initialise environment variables
 from environs import Env
 
@@ -165,18 +168,74 @@ FIELD_ENCRYPTION_KEY = env.str("FIELD_ENCRYPTION_KEY")
 
 
 # Logging
-PATH = 'logs'
-if not os.path.exists(PATH):
-    os.makedirs(PATH)
+# PATH = 'logs'
+# if not os.path.exists(PATH):
+#     os.makedirs(PATH)
+
+# LOGGING = {
+#     # Define the logging version
+#     'version': 1,
+#     # Enable the existing loggers
+#     'disable_existing_loggers': False,
+#     "formatters": {
+#         "verbose": {
+#             "format": "{levelname} {asctime} [{name}:{lineno}] {message}",  # other options: {module} {process:d} {thread:d}
+#             "datefmt": "%Y-%m-%d_%H:%M:%S",
+#             "style": "{",
+#         },
+#         "simple": {
+#             "format": "{levelname} {message}",
+#             "style": "{",
+#         },
+#     },
+#     # Define the handlers
+#     'handlers': {
+#         'file': {
+#             'level': 'INFO',
+#             "class": "logging.handlers.TimedRotatingFileHandler",
+#             "formatter": "verbose",
+#             # 'class': 'logging.FileHandler',
+#             'filename': 'logs/server.log',
+#             "when": "midnight",
+#         },
+
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+
+#    # Define the loggers
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'INFO',
+#             'propagate': True,
+
+#         },
+#     },
+# }
+
+
+LOG_ROOT = os.path.join(BASE_DIR, 'logs')
+
+# Create a log directory if it doesn't exist
+if not os.path.exists(LOG_ROOT):
+    os.makedirs(LOG_ROOT)
+
+# Function to generate the log file name based on the date
+def get_log_file_path():
+    now = datetime.now()
+    log_dir = os.path.join(LOG_ROOT, now.strftime('%Y-%m'))
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+    return os.path.join(log_dir, now.strftime('%Y-%m-%d.log'))
 
 LOGGING = {
-    # Define the logging version
     'version': 1,
-    # Enable the existing loggers
     'disable_existing_loggers': False,
     "formatters": {
         "verbose": {
-            "format": "{levelname} {asctime} [{name}:{lineno}] {message}",  # other options: {module} {process:d} {thread:d}
+            "format": "{levelname} {asctime} [{name}:{lineno}] {message}",
             "datefmt": "%Y-%m-%d_%H:%M:%S",
             "style": "{",
         },
@@ -185,30 +244,19 @@ LOGGING = {
             "style": "{",
         },
     },
-    # Define the handlers
     'handlers': {
         'file': {
             'level': 'INFO',
-            "class": "logging.handlers.TimedRotatingFileHandler",
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': get_log_file_path(),
             "formatter": "verbose",
-            # 'class': 'logging.FileHandler',
-            'filename': 'logs/server.log',
-            "when": "midnight",
-            "interval": 1,
-        },
-
-        'console': {
-            'class': 'logging.StreamHandler',
         },
     },
-
-   # Define the loggers
     'loggers': {
         'django': {
             'handlers': ['file'],
             'level': 'INFO',
             'propagate': True,
-
         },
     },
 }
