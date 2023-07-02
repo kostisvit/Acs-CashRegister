@@ -2,7 +2,7 @@
 {% block content %}
 <div class="float-right mb-3 mr-5">
   <a href="#" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Νέος Πελάτης</a>
-  <a href="#" class="btn btn-success btn-sm active" role="button" aria-pressed="true">Εξαγωγή</a>
+  <a href="{% url 'export_data_client' %}" class="btn btn-success btn-sm active" role="button" aria-pressed="true">Εξαγωγή</a>
 </div>
 <div id="customerDiv" class="mt-5" style="padding-left:20px; padding-right:20px;">
   <table class="table">

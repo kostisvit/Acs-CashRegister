@@ -1,10 +1,11 @@
+import xlwt, requests
 from django.http import HttpResponse
 from django.views import View
-import xlwt
 from .models import Cash
 from django.http import HttpResponse
 from django.shortcuts import render
 from .resources import CashResource
+from openpyxl import Workbook
 
 class CashExport(View):
     def get(self, request, *args, **kwargs):
@@ -65,3 +66,33 @@ def Export_data(request):
             return response   
 
     return render(request, 'app/tameiaki/export.html')
+
+
+
+# Export pelates, retrieve data from external api
+def export_data_as_excel(request):
+    # Make a request to the external API and retrieve the data
+    response = requests.get('http://host.docker.internal:8280/customer-api')
+    data = response.json()
+
+    # Create an Excel workbook and select the active sheet
+    workbook = Workbook()
+    sheet = workbook.active
+    
+    # Write headers to the first row
+    headers = ['Όνομα','Επώνυμο','Επιχείριση','Έίδος Επιχ.','Διεύθυνση','ΑΦΜ','Τηλέφωνο Επικ.']
+    sheet.append(headers)
+
+    # Write data to subsequent rows
+    for item in data:
+        row = [item['first_name'],item['last_name'],item['company_name'],item['company_type'],item['company_address'],item['company_afm'],item['phone_number']]
+        sheet.append(row)
+
+    # Set the appropriate response headers for Excel file download
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+
+    # Save the workbook to the response
+    workbook.save(response)
+
+    return response

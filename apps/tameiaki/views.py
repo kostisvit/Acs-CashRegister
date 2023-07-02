@@ -4,7 +4,7 @@ import json
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 from .models import Cash
 from .forms import CashForm
-from .export import CashExport,Export_data
+from .export import CashExport,Export_data,export_data_as_excel
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 from django.http import JsonResponse
@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def customers(request):
     try:
-        response = requests.get('http://host.docker.internal/customer-api') # http://127.0.0.1:8280/customer-api(without container)
+        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customer-api(without container)
         #convert reponse data into json
         data = json.loads(response.content)
         count = len(data)
@@ -72,7 +72,7 @@ class CreatePostView(CreateView):
     
 
     def form_valid(self, form):
-        response = requests.get('http://host.docker.internal/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
         api_id = response.json()
         instance = form.save(commit=False)
         instance.customer = api_id
