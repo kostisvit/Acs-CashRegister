@@ -8,4 +8,5 @@ services:
       - "6560:6560"
     volumes:
       - .:/web
+      - .:/acs_cash
     command: python manage.py runserver 0.0.0.0:6560

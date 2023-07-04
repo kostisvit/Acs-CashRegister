@@ -12,6 +12,9 @@ from .filters import CashFilter
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
+import logging
+
+logger = logging.getLogger(__name__)
 
 # API GET request Customers
 @login_required
