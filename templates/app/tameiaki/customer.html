@@ -8,7 +8,6 @@
   <table class="table">
       <thead>
           <tr>
-              <th>Id</th>
               <th>Όνομα</th>
               <th>Επώνυμο</th>
               <th>Τίτλος Εταιρείας</th>
@@ -24,7 +23,6 @@
           <p style="padding-left:20px; color: #726E6D; font-weight:500">Πελάτες: {{count}}</p>
           {% endif %}
           <tr>
-            <td>{{ item.id }}</td>
             <td>{{ item.first_name|title }}</td>
             <td>{{ item.last_name|title }}</td>
             <td>{{ item.company_name|title }}</td>
