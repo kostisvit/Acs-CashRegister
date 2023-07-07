@@ -80,6 +80,7 @@ class CreatePostView(CreateView):
         instance = form.save(commit=False)
         instance.customer = api_id
         instance.customer = form.cleaned_data['customer']
+        instance.customer = form.cleaned_data['file']
         instance.save()
         return super().form_valid(form)
 
