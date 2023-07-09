@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from encrypted_model_fields.fields import EncryptedCharField
 from datetime import datetime
+from .validators import validate_file_extension
 
 
 class TimeStampMixin(models.Model):
@@ -15,7 +16,7 @@ class TimeStampMixin(models.Model):
 
 def client_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'user_{0}/{1}'.format(instance.user.id, filename)
+    return 'client_{0}/{1}'.format(instance.customer, filename)
 
 
 class Cash(TimeStampMixin):
@@ -30,7 +31,7 @@ class Cash(TimeStampMixin):
     aes_key = EncryptedCharField(max_length=150,null=True, blank=True)
     status = models.BooleanField(default=True, blank=True,null=True)
     info = models.TextField(blank=True,null=True)
-    document = models.FileField(upload_to=client_directory_path,default='static/AcsServices.png')
+    document = models.FileField(upload_to=client_directory_path,default='static/AcsServices.png',validators=[validate_file_extension])
     
     class Meta:
         verbose_name = 'Ταμειακές'
