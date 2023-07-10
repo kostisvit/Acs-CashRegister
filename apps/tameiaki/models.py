@@ -31,19 +31,8 @@ class Cash(TimeStampMixin):
     aes_key = EncryptedCharField(max_length=150,null=True, blank=True)
     status = models.BooleanField(default=True, blank=True,null=True)
     info = models.TextField(blank=True,null=True)
-    file = models.FileField(upload_to=client_directory_path,default='static/AcsServices.png',validators=[validate_file_extension])
-    
-    def save(self, *args, **kwargs):
-        # Override the save method to prevent saving the file itself
-        if self.pk:
-            # The model instance already exists, so the file has already been saved
-            # Clear the file field to avoid saving it again
-            file_field = self._meta.get_field('file')
-            file_path = getattr(self, file_field.name)
-            file_field.storage.delete(file_path)
-            setattr(self, file_field.name, '')
+    file = models.FileField(upload_to=client_directory_path,default='static/AcsServices.png',validators=[validate_file_extension],blank=True,null=True)
 
-        super().save(*args, **kwargs)
     
     class Meta:
         verbose_name = 'Ταμειακές'

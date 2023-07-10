@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 import requests
 import json
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
@@ -70,7 +71,7 @@ class TameiakiFilterView(ListView):
 class CreatePostView(CreateView):
     model = Cash
     form_class = CashForm
-    success_url = '/'
+    success_url = reverse_lazy('tameiaki')
     template_name = 'app/new_records/tameiaki_new.html'
     
 

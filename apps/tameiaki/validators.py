@@ -4,4 +4,4 @@ def validate_file_extension(value):
     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
     valid_extensions = ['.pdf','.jpg']
     if not ext.lower() in valid_extensions:
-        raise ValidationError('Δεν υποστηρίζεται η κατάληξη του αρχείου. Επιτρέπεται μόνο (.pdf','.jpg')
+        raise ValidationError('Δεν υποστηρίζεται η κατάληξη του αρχείου. Επιτρέπεται μόνο (.pdf,.jpg)')

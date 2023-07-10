@@ -4,9 +4,14 @@
 {% block content %}
   <div class="container">
     <h1 class="mt-5" style="color:dodgerblue">Ταμειακές - Διόρθωση Εγγραφής</h1>
-  <form method="post" class="mt-5">
+  <form method="post" class="mt-5" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
+    {% if form.file.errors %}
+    <div class="alert alert-danger" role="alert">
+      {{ form.file.errors }}
+    </div>
+  {% endif %}
     <button type="submit" class="btn btn-success">Αποθήκευση</button>
   </form>
 </div>
