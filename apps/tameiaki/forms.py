@@ -42,4 +42,4 @@ class CashForm(forms.ModelForm):
 
     class Meta:
       model = Cash
-      fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','update_date','status','aes_key','info','document']
+      fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','update_date','status','aes_key','info','file']

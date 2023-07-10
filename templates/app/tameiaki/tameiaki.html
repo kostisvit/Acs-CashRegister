@@ -81,7 +81,7 @@
             {% endif %}
             <td>{{ obj.update_date|default_if_none:"-"}}</td>
             <td>{{ obj.aes_key|default_if_none:"-" }}</td>
-              {% if obj.document  %}
+              {% if obj.file  %}
             <td><i class="bi bi-file-check-fill"></i></td>
               {% else %}
             <td></td>
