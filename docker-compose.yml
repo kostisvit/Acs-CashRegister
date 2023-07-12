@@ -10,3 +10,41 @@ services:
       - .:/web
       - .:/acs_cash
     command: python manage.py runserver 0.0.0.0:6560
+    env_file:
+      - .env
+    environment:
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASS=${DATABASE_PASS}
+      - DATABASE_HOST=${DATABASE_HOST}
+    depends_on:
+      - db 
+  db:
+    container_name: cash_database
+    image: postgres
+    volumes:
+      - postgres_cash_data:/var/lib/postgressql/data
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_NAME=${POSTGRES_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASS=${POSTGRES_PASS}
+      - POSTGRES_HOST=${POSTRES_HOST}
+    ports:
+      - "5432:5432"
+  pg_admin:
+    container_name: cash_pgadmin4
+    image: dpage/pgadmin4:latest
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+      - PGADMIN_LISTEN_PORT=${PGADMIN_LOGIN_PORT}
+    ports:
+      - "5550:5050"
+
+volumes:
+  postgres_cash_data:
