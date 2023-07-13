@@ -1,5 +1,6 @@
 from django import forms
 from .models import Cash
+from encrypted_model_fields.fields import EncryptedCharField
 import requests
 
 class CashForm(forms.ModelForm):
@@ -41,5 +42,15 @@ class CashForm(forms.ModelForm):
         return []
 
     class Meta:
-      model = Cash
-      fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','update_date','status','aes_key','info','file']
+        model = Cash
+        fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','update_date','status','aes_key','info','file']
+
+
+class ClientForm(forms.Form):
+    first_name = forms.CharField(max_length=100)
+    last_name = forms.CharField(max_length=150)
+    company_name = forms.CharField(max_length=150)
+    company_type = forms.CharField(max_length=150)
+    company_address = forms.CharField(max_length=150)
+    company_afm = forms.CharField(max_length=150)
+    phone_number = forms.CharField(max_length=150)

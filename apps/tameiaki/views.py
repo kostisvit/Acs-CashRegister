@@ -4,10 +4,10 @@ import requests
 import json
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 from .models import Cash
-from .forms import CashForm
+from .forms import CashForm, ClientForm
 from .export import CashExport,Export_data,export_data_as_excel
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import ListView
+from django.views.generic import ListView, FormView
 from django.http import JsonResponse
 from .filters import CashFilter
 from django.utils.decorators import method_decorator
@@ -103,3 +103,34 @@ class CashUpdateView(UpdateView):
         instance.save()
         return super().form_valid(form)
     
+
+
+
+# Client API Post
+
+class CustomerFormView(FormView):
+    template_name = 'app/new_records/customer_new.html'
+    form_class = ClientForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        # Post the form data to the API app
+        api_url = 'http://host.docker.internal:8280/api/customer-new'
+        data = {
+            'first_name': form.cleaned_data['first_name'],
+            'last_name': form.cleaned_data['last_name'],
+            'company_name': form.cleaned_data['company_name'],
+            'company_type': form.cleaned_data['company_type'],
+            'company_address': form.cleaned_data['company_address'],
+            'company_afm': form.cleaned_data['company_afm'],
+            'phone_number': form.cleaned_data['phone_number']
+
+        }
+        response = requests.post(api_url, data=data)
+
+        if response.status_code == 200:
+            return super().form_valid(form)
+        else:
+            # Handle the API error case
+            form.add_error(None, 'Failed to submit the form. Please try again.')
+            return self.form_invalid(form)

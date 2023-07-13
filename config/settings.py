@@ -106,18 +106,6 @@ DATABASES = {
     }
 }
 
-# Production
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': os.getenv('DATABASE_NAME'),
-#         'USER': os.getenv('DATABASE_USER'),
-#         'PASSWORD': os.getenv('DATABASE_PASS'),
-#         'HOST': 'db',
-#         'PORT': os.getenv('DATABASE_PORT'),
-#     }
-# }
-
 DATABASES['default'] = DATABASES['default' if DEBUG else 'production']
 
 
