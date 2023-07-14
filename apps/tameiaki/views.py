@@ -107,7 +107,11 @@ class CashUpdateView(UpdateView):
 
 
 # Client API Post
+from django.utils.decorators import method_decorator
 
+from django.views.decorators.csrf import csrf_exempt
+
+@method_decorator(csrf_exempt, name='dispatch')
 class CustomerFormView(FormView):
     template_name = 'app/new_records/customer_new.html'
     form_class = ClientForm
