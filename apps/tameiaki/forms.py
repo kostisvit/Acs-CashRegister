@@ -1,6 +1,7 @@
 from django import forms
 from .models import Cash
 from encrypted_model_fields.fields import EncryptedCharField
+from django.core.validators import RegexValidator
 import requests
 
 class CashForm(forms.ModelForm):
@@ -46,11 +47,12 @@ class CashForm(forms.ModelForm):
         fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','update_date','status','aes_key','info','file']
 
 
+#Customer API Form
 class ClientForm(forms.Form):
-    first_name = forms.CharField(max_length=100)
-    last_name = forms.CharField(max_length=150)
-    company_name = forms.CharField(max_length=150)
-    company_type = forms.CharField(max_length=150)
-    company_address = forms.CharField(max_length=150)
-    company_afm = forms.CharField(max_length=150)
-    phone_number = forms.CharField(max_length=150)
+    first_name = forms.CharField(label='Ονομα',max_length=100)
+    last_name = forms.CharField(label='Επώνυμο',max_length=150)
+    company_name = forms.CharField(label='Επωνυμία',max_length=150)
+    company_type = forms.CharField(label='Επιχείρηση',max_length=150)
+    company_address = forms.CharField(label='Διεύθυνση',max_length=150)
+    company_afm = forms.CharField(label='ΑΦΜ',max_length=150,validators=[RegexValidator(regex=r'^\d{9}$',message='Please enter exactly 9 digits.',code='invalid_number')])
+    phone_number = forms.CharField(label='Τηλ. Επικοινωνίας',max_length=150)
