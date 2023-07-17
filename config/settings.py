@@ -26,7 +26,7 @@ environ.Env.read_env(env_file=os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -180,56 +180,6 @@ AUTHENTICATION_BACKENDS = [
 #AES_KEY_ENCRYPTION_KEY
 
 FIELD_ENCRYPTION_KEY = env.str("FIELD_ENCRYPTION_KEY")
-
-
-# Logging
-# PATH = 'logs'
-# if not os.path.exists(PATH):
-#     os.makedirs(PATH)
-
-# LOGGING = {
-#     # Define the logging version
-#     'version': 1,
-#     # Enable the existing loggers
-#     'disable_existing_loggers': False,
-#     "formatters": {
-#         "verbose": {
-#             "format": "{levelname} {asctime} [{name}:{lineno}] {message}",  # other options: {module} {process:d} {thread:d}
-#             "datefmt": "%Y-%m-%d_%H:%M:%S",
-#             "style": "{",
-#         },
-#         "simple": {
-#             "format": "{levelname} {message}",
-#             "style": "{",
-#         },
-#     },
-#     # Define the handlers
-#     'handlers': {
-#         'file': {
-#             'level': 'INFO',
-#             "class": "logging.handlers.TimedRotatingFileHandler",
-#             "formatter": "verbose",
-#             # 'class': 'logging.FileHandler',
-#             'filename': 'logs/server.log',
-#             "when": "midnight",
-#         },
-
-#         'console': {
-#             'class': 'logging.StreamHandler',
-#         },
-#     },
-
-#    # Define the loggers
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'INFO',
-#             'propagate': True,
-
-#         },
-#     },
-# }
-
 
 LOG_ROOT = os.path.join(BASE_DIR, 'logs')
 
