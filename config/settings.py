@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'captcha',
 ]
 
+
+
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 MIDDLEWARE = [

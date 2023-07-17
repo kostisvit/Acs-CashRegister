@@ -15,7 +15,7 @@ class CashForm(forms.ModelForm):
     status = forms.BooleanField(label='Κατάσταση(Ενεργή)',initial=True,required=False)
     aes_key = forms.CharField(max_length=100, label='AES Key', required=False)
     info = forms.CharField(widget=forms.Textarea, label='Σημειώσεις', required=False)
-    file = forms.FileField(required=False)
+    file = forms.FileField(label='Μεταφόρτωση αρχείου',required=False)
 
 
     def __init__(self, *args, **kwargs):
