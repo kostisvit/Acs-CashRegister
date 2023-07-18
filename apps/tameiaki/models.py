@@ -31,7 +31,7 @@ class Cash(TimeStampMixin):
     aes_key = EncryptedCharField(max_length=150,null=True, blank=True)
     status = models.BooleanField(default=True, blank=True,null=True)
     info = models.TextField(blank=True,null=True)
-    file = models.FileField(upload_to=client_directory_path,default='static/AcsServices.png',validators=[validate_file_extension],blank=True,null=True)
+    file = models.FileField(upload_to=client_directory_path,validators=[validate_file_extension],blank=True,null=True)
 
     
     class Meta:

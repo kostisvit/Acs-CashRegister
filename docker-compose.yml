@@ -44,7 +44,7 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
       - PGADMIN_LISTEN_PORT=${PGADMIN_LOGIN_PORT}
     ports:
-      - "5550:5050"
+      - "5550:5550"
 
 volumes:
   postgres_cash_data:
