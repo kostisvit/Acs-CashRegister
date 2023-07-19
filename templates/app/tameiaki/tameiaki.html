@@ -80,11 +80,11 @@
             <td style=" font-weight: bolder;">Offline
             {% endif %}
             <td>{{ obj.update_date|default_if_none:"-"}}</td>
-            <td>{{ obj.aes_key|default_if_none:"-" }}</td>
+            <td>{{ obj.aes_key|default_if_none:"-"|truncatechars:7 }}</td>
               {% if obj.file  %}
-            <td><i class="bi bi-file-check-fill"></i></td>
+            <td><i class="bi bi-file-check-fill" style="color: mediumblue;"></i></td>
               {% else %}
-            <td></td>
+            <td>-</td>
               {% endif %}
             <td>{{ obj.info|default_if_none:"-"  }}</td>
             {% if obj.status == True %}

@@ -13,6 +13,7 @@
               <th>Τίτλος Εταιρείας</th>
               <th>Κατηγορία</th>
               <th>Διεύθυνση</th>
+              <th>Email</th>
               <th>ΑΦΜ</th>
               <th>Τηλ. Επικοιν.</th>
           </tr>
@@ -28,6 +29,7 @@
             <td>{{ item.company_name|title }}</td>
             <td>{{ item.company_type|title }}</td>
             <td>{{ item.company_address|title }}</td>
+            <td>{{ item.company_email|default_if_none:"-" }}</td>
             <td>{{ item.company_afm }}</td>
             <td>{{ item.phone_number }}</td>
           {% endfor %}    
