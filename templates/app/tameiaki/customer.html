@@ -16,6 +16,7 @@
               <th>Email</th>
               <th>ΑΦΜ</th>
               <th>Τηλ. Επικοιν.</th>
+              <th>Ενέργειες</th>
           </tr>
       </thead>
       <tbody>
@@ -32,6 +33,9 @@
             <td>{{ item.company_email|default_if_none:"-" }}</td>
             <td>{{ item.company_afm }}</td>
             <td>{{ item.phone_number }}</td>
+            <td><a href="#"> 
+              <span><i class="bi bi-pencil-square" style="color: #726E6D;"></i></span></a>
+            </td>
           {% endfor %}    
       </tbody>
   </table>

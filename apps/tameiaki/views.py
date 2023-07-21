@@ -127,6 +127,7 @@ class CustomerFormView(FormView):
             'company_type': form.cleaned_data['company_type'],
             'company_address': form.cleaned_data['company_address'],
             'company_afm': form.cleaned_data['company_afm'],
+            'company_email': form.cleaned_data['company_email'],
             'phone_number': form.cleaned_data['phone_number']
 
         }

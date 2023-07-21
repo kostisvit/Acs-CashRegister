@@ -54,5 +54,6 @@ class ClientForm(forms.Form):
     company_name = forms.CharField(label='Επωνυμία',max_length=150)
     company_type = forms.CharField(label='Επιχείρηση',max_length=150)
     company_address = forms.CharField(label='Διεύθυνση',max_length=150)
+    company_email = forms.EmailField(label='Email',required=False)
     company_afm = forms.CharField(label='ΑΦΜ',max_length=150,validators=[RegexValidator(regex=r'^\d{9}$',message='Please enter exactly 9 digits.',code='invalid_number')])
     phone_number = forms.CharField(label='Τηλ. Επικοινωνίας',max_length=150)
