@@ -10,9 +10,7 @@ from .admin import admin_site
 urlpatterns = [
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("admin/", admin_site.urls),
-    path("accounts/", include("accounts.urls")),
-    path("accounts/", include("django.contrib.auth.urls")),
-    path('captcha/', include('captcha.urls')),
+    path("accounts/", include("allauth.urls")),
     path("", include("tameiaki.urls")),
     
 ]

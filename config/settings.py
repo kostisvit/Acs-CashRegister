@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'accounts',
     'tameiaki',
     'encrypted_model_fields',
@@ -51,12 +52,11 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'django_filters',
     'widget_tweaks',
-    'captcha',
     'django_otp',
     'django_otp.plugins.otp_totp',
+    'allauth',
+    'allauth.account',
 ]
-
-
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
@@ -232,3 +232,16 @@ LOGGING = {
     },
 }
 
+# django-allauth config
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT = 'home' # new
+SITE_ID = 1 # new
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend', # new
+)
+
+ACCOUNT_USERNAME_REQUIRED = False # new
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # new
+ACCOUNT_EMAIL_REQUIRED = True # new
+ACCOUNT_UNIQUE_EMAIL = True # new
