@@ -130,3 +130,9 @@ dmypy.json
 
 # media
 /media
+
+# sql file
+*.sql
+
+# txt files
+commands.txt

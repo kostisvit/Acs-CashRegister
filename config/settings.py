@@ -187,50 +187,50 @@ AUTHENTICATION_BACKENDS = [
 
 FIELD_ENCRYPTION_KEY = env.str("FIELD_ENCRYPTION_KEY")
 
-LOG_ROOT = os.path.join(BASE_DIR, 'logs')
+# LOG_ROOT = os.path.join(BASE_DIR, 'logs')
 
-# Create a log directory if it doesn't exist
-if not os.path.exists(LOG_ROOT):
-    os.makedirs(LOG_ROOT)
+# # Create a log directory if it doesn't exist
+# if not os.path.exists(LOG_ROOT):
+#     os.makedirs(LOG_ROOT)
 
-# Function to generate the log file name based on the date
-def get_log_file_path():
-    now = datetime.now()
-    log_dir = os.path.join(LOG_ROOT, now.strftime('%Y-%m'))
-    if not os.path.exists(log_dir):
-        os.makedirs(log_dir)
-    return os.path.join(log_dir, now.strftime('%Y-%m-%d.log'))
+# # Function to generate the log file name based on the date
+# def get_log_file_path():
+#     now = datetime.now()
+#     log_dir = os.path.join(LOG_ROOT, now.strftime('%Y-%m'))
+#     if not os.path.exists(log_dir):
+#         os.makedirs(log_dir)
+#     return os.path.join(log_dir, now.strftime('%Y-%m-%d.log'))
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    "formatters": {
-        "verbose": {
-            "format": "{levelname} {asctime} [{name}:{lineno}] {message}",
-            "datefmt": "%Y-%m-%d_%H:%M:%S",
-            "style": "{",
-        },
-        "simple": {
-            "format": "{levelname} {message}",
-            "style": "{",
-        },
-    },
-    'handlers': {
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.handlers.WatchedFileHandler',
-            'filename': get_log_file_path(),
-            "formatter": "verbose",
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': True,
+#     "formatters": {
+#         "verbose": {
+#             "format": "{levelname} {asctime} [{name}:{lineno}] {message}",
+#             "datefmt": "%Y-%m-%d_%H:%M:%S",
+#             "style": "{",
+#         },
+#         "simple": {
+#             "format": "{levelname} {message}",
+#             "style": "{",
+#         },
+#     },
+#     'handlers': {
+#         'file': {
+#             'level': 'INFO',
+#             'class': 'logging.handlers.WatchedFileHandler',
+#             'filename': get_log_file_path(),
+#             "formatter": "verbose",
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['file'],
+#             'level': 'INFO',
+#             'propagate': True,
+#         },
+#     },
+# }
 
 # django-allauth config
 LOGIN_REDIRECT_URL = 'home'
