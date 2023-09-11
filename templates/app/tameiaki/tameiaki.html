@@ -72,7 +72,7 @@
             <td>{{ obj.cash_model }}</td>
             <td>{{ obj.cash_number }}</td>
             <td>{{ obj.register_date|date:"d-m-Y" }}</td>
-            <td>{{ obj.old_os }}</td>
+            <td>{{ obj.old_os|default_if_none:"-" }}</td>
             <td>{{ obj.new_os }}</td>
             {% if obj.status == True %}
             <td style="color:green">Online</td>
@@ -82,7 +82,7 @@
             <td>{{ obj.update_date|default_if_none:"-"}}</td>
             <td>{{ obj.aes_key|default_if_none:"-"|truncatechars:7 }}</td>
               {% if obj.file  %}
-            <td><i class="bi bi-file-check-fill" style="color: mediumblue;"></i></td>
+            <td><a href="{{ obj.file.url }}" download><button class="btn btn-warning"><i class="bi bi-file-earmark-arrow-down-fill" style="margin-right: 10px;"></i>Download</button></a></td>
               {% else %}
             <td>-</td>
               {% endif %}

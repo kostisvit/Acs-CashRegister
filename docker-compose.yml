@@ -10,6 +10,7 @@ services:
       - .:/web
       - .:/acs_cash
       - static_data:/vol/acs_cash/static/
+      - static_media:/vol/acs_cash/media/
     command: gunicorn config.wsgi:application --bind 0.0.0.0:5555
     env_file:
       - .env
@@ -26,6 +27,7 @@ services:
       context: ./proxy
     volumes:
       - static_data:/vol/acs_cash/static/
+      - static_media:/vol/acs_cash/media/
     ports:
       - "6560:6560"
     depends_on:
@@ -60,3 +62,4 @@ services:
 volumes:
   postgres_cash_data:
   static_data:
+  static_media:

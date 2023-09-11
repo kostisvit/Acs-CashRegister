@@ -73,7 +73,7 @@ class CreatePostView(CreateView):
     form_class = CashForm
     success_url = reverse_lazy('tameiaki')
     template_name = 'app/new_records/tameiaki_new.html'
-    
+
 
     def form_valid(self, form):
         response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
@@ -139,3 +139,5 @@ class CustomerFormView(FormView):
             # Handle the API error case
             form.add_error(None, 'Failed to submit the form. Please try again.')
             return self.form_invalid(form)
+
+
