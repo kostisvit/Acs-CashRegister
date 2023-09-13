@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load filename %}
+{% load widget_tweaks %}
+{% block tab-title %}Αρχεία | {% endblock %}
+{% block content %}
+
+<body>
+  <div id="cashDiv" class="mt-5" >
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Files</th>
+                <th>Size</th>
+            </tr>
+        </thead>
+  <tbody>
+    {% for obj in object_list%}
+    <tr class="tbrows">
+ 
+  {% if obj.file  %}
+  <td><a href="{{ obj.file.url }}" download>{{obj.file.name|filename}}</a></td>
+    {% else %}
+  <td>-</td>
+  
+    {% endif %}
+    {% if obj.file  %}
+    <td>{{obj.file.size|filesizeformat}}</td>
+      {% else %}
+    <td>-</td>
+    
+      {% endif %}
+    
+  {% endfor %}
+  </tr>
+  </tbody>
+  </table>
+  </div>
+</body>
+
+{% endblock content %}

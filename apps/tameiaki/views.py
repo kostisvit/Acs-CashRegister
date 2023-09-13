@@ -141,3 +141,13 @@ class CustomerFormView(FormView):
             return self.form_invalid(form)
 
 
+class FileListView(ListView):
+    model = Cash
+    template_name = 'app/tameiaki/files.html'
+    success_url = '/'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.exclude(file__exact='')
+
+        return queryset
