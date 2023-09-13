@@ -73,7 +73,13 @@ class CreatePostView(CreateView):
     form_class = CashForm
     success_url = reverse_lazy('tameiaki')
     template_name = 'app/new_records/tameiaki_new.html'
-
+    
+    def form_valid(self, form):
+        file = self.request.Cash.getlist('file')
+        for uploaded_file in file:
+            file_instance = Cash(file=uploaded_file)
+            file_instance.save()
+        return super().form_valid(form)
 
     def form_valid(self, form):
         response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)

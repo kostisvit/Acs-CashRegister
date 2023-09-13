@@ -14,24 +14,12 @@
             </tr>
         </thead>
   <tbody>
-    {% for obj in object_list%}
+    {% for obj in object_list %}
     <tr class="tbrows">
- 
-  {% if obj.file  %}
-  <td><a href="{{ obj.file.url }}" download>{{obj.file.name|filename}}</a></td>
-    {% else %}
-  <td>-</td>
-  
-    {% endif %}
-    {% if obj.file  %}
-    <td>{{obj.file.size|filesizeformat}}</td>
-      {% else %}
-    <td>-</td>
-    
-      {% endif %}
-    
-  {% endfor %}
-  </tr>
+      <td><a href="{{ obj.file.url }}" download>{{obj.file.name|filename}}</a></td>
+      <td>{{obj.file.size|filesizeformat}}</td>
+    {% endfor %}
+    </tr>
   </tbody>
   </table>
   </div>
