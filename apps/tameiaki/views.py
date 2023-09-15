@@ -3,8 +3,8 @@ from django.urls import reverse_lazy
 import requests
 import json
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
-from .models import Cash
-from .forms import CashForm, ClientForm
+from .models import Cash,UploadFile
+from .forms import CashForm, ClientForm, FileUploadForm
 from .export import CashExport,Export_data,export_data_as_excel
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, FormView
@@ -147,8 +147,24 @@ class CustomerFormView(FormView):
             return self.form_invalid(form)
 
 
+
+#Upload file
+class FileUploadView(FormView):
+    model = UploadFile
+    template_name = 'app/tameiaki/upload_file.html'
+    form_class = FileUploadForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        file = self.request.FILES.getlist('file')
+        for uploaded_file in file:
+            file_instance = UploadFile(file=uploaded_file)
+            file_instance.save()
+        return super().form_valid(form)
+
+# Display files
 class FileListView(ListView):
-    model = Cash
+    model = UploadFile
     template_name = 'app/tameiaki/files.html'
     success_url = '/'
 
@@ -157,3 +173,4 @@ class FileListView(ListView):
         queryset = queryset.exclude(file__exact='')
 
         return queryset
+    
