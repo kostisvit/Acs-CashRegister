@@ -10,13 +10,15 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Files</th>
-                <th>Size</th>
+              <th>Πελάτης</th>
+              <th>Files</th>
+              <th>Size</th>
             </tr>
         </thead>
   <tbody>
     {% for obj in object_list %}
     <tr class="tbrows">
+      <td>{{obj.customer}}</td>
       <td><a href="{{ obj.file.url }}" download>{{obj.file.name|filename}}</a></td>
       <td>{{obj.file.size|filesizeformat}}</td>
     {% endfor %}
