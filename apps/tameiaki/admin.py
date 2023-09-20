@@ -6,6 +6,9 @@ from import_export.admin import ImportExportModelAdmin
 class CashAdmin(ImportExportModelAdmin):
     list_display = ('customer', 'cash_model', 'cash_number','register_date', 'old_os', 'new_os', 'update_date','status','info','created_at','updated_at')
 
+class FileAdmin(ImportExportModelAdmin):
+    list_display = ('customer','file')
+
 
 admin.site.register(Cash,CashAdmin)
-admin.site.register(UploadFile)
+admin.site.register(UploadFile,FileAdmin)

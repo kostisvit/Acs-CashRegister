@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cash
+from .models import Cash,UploadFile
 from encrypted_model_fields.fields import EncryptedCharField
 from django.core.validators import RegexValidator
 import requests
@@ -62,9 +62,14 @@ class ClientForm(forms.Form):
 
 
 #Upload file form
-class FileUploadForm(forms.Form):
+class FileUploadForm(forms.ModelForm):
     customer = forms.ChoiceField(choices=[],label='Πελάτης')
     file = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+    class Meta:
+        model = UploadFile
+        fields = ['customer','file']
+
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

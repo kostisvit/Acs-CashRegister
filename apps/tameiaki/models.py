@@ -31,7 +31,6 @@ class Cash(TimeStampMixin):
     aes_key = EncryptedCharField(max_length=150,null=True, blank=True)
     status = models.BooleanField(default=True, blank=True,null=True)
     info = models.TextField(blank=True,null=True)
-    #file = models.FileField(upload_to=client_directory_path,validators=[validate_file_extension],blank=True,null=True)
 
     
     class Meta:
@@ -39,15 +38,18 @@ class Cash(TimeStampMixin):
         verbose_name_plural = 'Ταμειακές'
         ordering = ['customer']
 
+    def __str__(self):
+        return str(self.customer)
+
 def cash_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'cash_{0}/{1}'.format(instance.customer, filename)
 
 class UploadFile(TimeStampMixin):
-    customer = models.CharField(max_length=150,null=False,blank=False, default='None')
+    customer = models.CharField(max_length=150,null=False,blank=False)
     file = models.FileField(upload_to=cash_directory_path,validators=[validate_file_extension])
 
     class Meta:
         verbose_name = 'Αρχεία'
         verbose_name_plural = 'Αρχεία'
-        db_table = 'Archive'
+        db_table = 'CashFiles'

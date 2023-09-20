@@ -8,6 +8,11 @@
       <form method="post" class="mt-5" enctype="multipart/form-data">
           {% csrf_token %}
           {{ form|crispy }}
+          {% if form.file.errors %}
+          <div class="alert alert-danger" role="alert">
+            {{ form.file.errors }}
+          </div>
+        {% endif %}
           <button type="submit" class="btn btn-success">Upload</button>
       </form>
   </body>
