@@ -158,15 +158,15 @@ class FileUploadView(FormView):
     def form_valid(self, form):
         file = self.request.FILES.getlist('file')
         for uploaded_file in file:
-            file_instance = UploadFile(file=uploaded_file)
-            file_instance.save()
+            instance = UploadFile(file=uploaded_file)
+
         response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
         api_id = response.json()
         instance = form.save(commit=False)
         instance.customer = api_id
         instance.customer = form.cleaned_data['customer']
         instance.save()
-        file_instance.save()
+
         return super().form_valid(form)
 
     # def form_valid(self, form):
