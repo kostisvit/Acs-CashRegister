@@ -6,6 +6,10 @@
 {% block content %}
 
 <body>
+  <div class="float-right mb-3 mr-5">
+    <a href="{% url 'file_upload' %}" class="btn btn-danger btn-sm active" role="button" aria-pressed="true"><i class="bi bi-cloud-upload-fill" style="margin-right: 10px;"></i>Μεταφόρτωση αρχείου</a>
+    <a href="#" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><i class="bi bi-envelope-open-fill" style="margin-right: 10px;"></i>Αποστολή Email</a>
+  </div>
   <div id="cashDiv" class="mt-5" >
     <table class="table">
         <thead>
