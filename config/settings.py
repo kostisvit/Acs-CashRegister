@@ -70,6 +70,7 @@ MIDDLEWARE = [
     'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'tameiaki.middleware.RequestResponseLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
