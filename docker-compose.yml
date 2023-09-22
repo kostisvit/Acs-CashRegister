@@ -25,6 +25,8 @@ services:
     container_name: acs_cash_proxy
     build:
       context: ./proxy
+    environment:
+      - TZ=Europe/Athens
     volumes:
       - static_data:/vol/acs_cash/static/
       - static_media:/vol/acs_cash/media/

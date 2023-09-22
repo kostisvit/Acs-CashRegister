@@ -2,6 +2,7 @@ import os
 import sys
 from pathlib import Path
 import environ
+from django.utils.log import DEFAULT_LOGGING
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -173,64 +174,13 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-
-# Captcha settings
-CAPTCHA_LENGTH = 5  # Number of characters in the captcha
-CAPTCHA_FONT_SIZE = 30
-
 # Add captcha field to authentication form
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
 #AES_KEY_ENCRYPTION_KEY
-
 FIELD_ENCRYPTION_KEY = env.str("FIELD_ENCRYPTION_KEY")
-
-# LOG_ROOT = os.path.join(BASE_DIR, 'logs')
-
-# # Create a log directory if it doesn't exist
-# if not os.path.exists(LOG_ROOT):
-#     os.makedirs(LOG_ROOT)
-
-# # Function to generate the log file name based on the date
-# def get_log_file_path():
-#     now = datetime.now()
-#     log_dir = os.path.join(LOG_ROOT, now.strftime('%Y-%m'))
-#     if not os.path.exists(log_dir):
-#         os.makedirs(log_dir)
-#     return os.path.join(log_dir, now.strftime('%Y-%m-%d.log'))
-
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': True,
-#     "formatters": {
-#         "verbose": {
-#             "format": "{levelname} {asctime} [{name}:{lineno}] {message}",
-#             "datefmt": "%Y-%m-%d_%H:%M:%S",
-#             "style": "{",
-#         },
-#         "simple": {
-#             "format": "{levelname} {message}",
-#             "style": "{",
-#         },
-#     },
-#     'handlers': {
-#         'file': {
-#             'level': 'INFO',
-#             'class': 'logging.handlers.WatchedFileHandler',
-#             'filename': get_log_file_path(),
-#             "formatter": "verbose",
-#         },
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'level': 'INFO',
-#             'propagate': True,
-#         },
-#     },
-# }
 
 # django-allauth config
 LOGIN_REDIRECT_URL = 'home'
@@ -245,3 +195,44 @@ ACCOUNT_USERNAME_REQUIRED = False # new
 ACCOUNT_AUTHENTICATION_METHOD = 'email' # new
 ACCOUNT_EMAIL_REQUIRED = True # new
 ACCOUNT_UNIQUE_EMAIL = True # new
+
+
+
+# Define the log directory
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+
+# Ensure the log directory exists
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+
+LOGGING_DIR = os.path.join(LOG_DIR, 'django_logs')
+
+if not os.path.exists(LOGGING_DIR):
+    os.makedirs(LOGGING_DIR)
+
+# Use the local time zone for logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} [{name}:{lineno}] {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(LOGGING_DIR, 'server.log'),
+            'when': 'midnight',  # Rotate logs daily
+            'interval': 1,        # Create a new log file every day
+            'backupCount': 7,     # Keep 7 days worth of logs
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['file'],
+        'level': 'INFO',
+    },
+}

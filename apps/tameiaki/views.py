@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 import logging
 
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 # API GET request Customers
 @login_required
