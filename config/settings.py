@@ -44,8 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    #local app
     'accounts',
     'tameiaki',
+    'send_mail',
+
+    #external app
     'encrypted_model_fields',
     'import_export',
     'rest_framework',
