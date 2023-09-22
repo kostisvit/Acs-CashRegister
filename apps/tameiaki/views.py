@@ -1,19 +1,21 @@
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+import logging
 import requests
 import json
+from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 from .models import Cash,UploadFile
 from .forms import CashForm, ClientForm, FileUploadForm
-from .export import CashExport,Export_data,export_data_as_excel
+from .export import Export_data,export_data_as_excel,CashExport
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, FormView
 from django.http import JsonResponse
 from .filters import CashFilter
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
-import logging
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -65,6 +67,10 @@ class TameiakiFilterView(ListView):
         context['my_Filter'] = CashFilter(self.request.GET, queryset=self.get_queryset())
         context['query_params'] = self.request.GET.urlencode()
         return context
+    
+    def get(self, request, *args, **kwargs):
+        logger.info(f'Accessing the {self.model.__name__} list view.')
+        return super().get(request, *args, **kwargs)
 
 
 # Create new tameiaki entry
@@ -76,20 +82,21 @@ class CreatePostView(CreateView):
     template_name = 'app/new_records/tameiaki_new.html'
     
     def form_valid(self, form):
-        file = self.request.Cash.getlist('file')
-        for uploaded_file in file:
-            file_instance = Cash(file=uploaded_file)
-            file_instance.save()
-        return super().form_valid(form)
+        try:
+            response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+            api_id = response.json()
+            instance = form.save(commit=False)
+            instance.customer = api_id
+            instance.customer = form.cleaned_data['customer']
+            logger.info('Record created succesfully')
+            instance.save()
+            return super().form_valid(form)
+        except Exception as e:
+            logger.exception('An error occurred in the CreateView: %s', str(e))
 
-    def form_valid(self, form):
-        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
-        api_id = response.json()
-        instance = form.save(commit=False)
-        instance.customer = api_id
-        instance.customer = form.cleaned_data['customer']
-        instance.save()
-        return super().form_valid(form)
+    def form_invalid(self, form):
+        logger.error('Record creation process encountered an error.')
+        return super().form_invalid(form)
 
 
 # Update view tameiaki
@@ -102,6 +109,7 @@ class CashUpdateView(UpdateView):
 
 
     def form_valid(self, form):
+        obj = self.get_object()
         try:
             response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
             api_id = response.json()
@@ -109,19 +117,14 @@ class CashUpdateView(UpdateView):
             instance.customer = api_id
             instance.customer = form.cleaned_data['customer']
             instance.save()
-            logger.info('Record updated succesfully')
+            logger.info('UpdateView successfully updated object with ID %d and data: %s', obj.id, obj.__dict__)
             return super().form_valid(form)
         except Exception as e:
-            # Log the exception
             logger.exception('An error occurred in the UpdateView: %s', str(e))
 
 
 
-# Client API Post
-from django.utils.decorators import method_decorator
-
-from django.views.decorators.csrf import csrf_exempt
-
+#Client API Post
 @method_decorator(csrf_exempt, name='dispatch')
 class CustomerFormView(FormView):
     template_name = 'app/new_records/customer_new.html'
@@ -129,7 +132,6 @@ class CustomerFormView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        # Post the form data to the API app
         api_url = 'http://host.docker.internal:8280/api/customer-new'
         data = {
             'first_name': form.cleaned_data['first_name'],
@@ -147,7 +149,6 @@ class CustomerFormView(FormView):
         if response.status_code == 200:
             return super().form_valid(form)
         else:
-            # Handle the API error case
             form.add_error(None, 'Failed to submit the form. Please try again.')
             return self.form_invalid(form)
 
@@ -184,12 +185,8 @@ class FileUploadView(FormView):
         logger.error('File upload process encountered an error.')
         return super().form_invalid(form)
 
-    # def form_valid(self, form):
-    #     file = self.request.FILES.getlist('file')
-    #     for uploaded_file in file:
-    #         file_instance = UploadFile(file=uploaded_file)
-    #         file_instance.save()
-    #     return super().form_valid(form)
+
+
 
 # Display files
 class FileListView(ListView):
@@ -200,6 +197,8 @@ class FileListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         queryset = queryset.exclude(file__exact='')
-
         return queryset
     
+    def get(self, request, *args, **kwargs):
+        logger.info(f'Accessing the {self.model.__name__} filelist view.')
+        return super().get(request, *args, **kwargs)

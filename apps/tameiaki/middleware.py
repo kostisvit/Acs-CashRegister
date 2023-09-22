@@ -11,7 +11,7 @@ class RequestResponseLoggingMiddleware:
         response = self.get_response(request)
 
         # Log the request information
-        logger.info(f"Method: {request.method}, Path: {request.path}, IP: {request.META['REMOTE_ADDR']}")
+        #logger.info(f"Method: {request.method}, Path: {request.path}, IP: {request.META['REMOTE_ADDR']}")
 
         # Log the response information
         logger.info(f"Status Code: {response.status_code}")
