@@ -102,14 +102,18 @@ class CashUpdateView(UpdateView):
 
 
     def form_valid(self, form):
-        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
-        api_id = response.json()
-        instance = form.save(commit=False)
-        instance.customer = api_id
-        instance.customer = form.cleaned_data['customer']
-        instance.save()
-        return super().form_valid(form)
-    
+        try:
+            response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+            api_id = response.json()
+            instance = form.save(commit=False)
+            instance.customer = api_id
+            instance.customer = form.cleaned_data['customer']
+            instance.save()
+            logger.info('Record updated succesfully')
+            return super().form_valid(form)
+        except Exception as e:
+            # Log the exception
+            logger.exception('An error occurred in the UpdateView: %s', str(e))
 
 
 
@@ -157,6 +161,7 @@ class FileUploadView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
+        logger.info('File upload process started.')
         file = self.request.FILES.getlist('file')
         for uploaded_file in file:
             instance = UploadFile(file=uploaded_file)
@@ -168,7 +173,16 @@ class FileUploadView(FormView):
         instance.customer = form.cleaned_data['customer']
         instance.save()
 
+        logger.info('File "%s" uploaded successfully.', uploaded_file.name)
+        logger.info('File size: %s bytes', uploaded_file.size)
+
+        
         return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        # Log that the file upload process encountered an error
+        logger.error('File upload process encountered an error.')
+        return super().form_invalid(form)
 
     # def form_valid(self, form):
     #     file = self.request.FILES.getlist('file')
