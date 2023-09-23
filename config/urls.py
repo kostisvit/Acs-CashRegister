@@ -12,6 +12,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("allauth.urls")),
     path("", include("tameiaki.urls")),
+    path("", include("send_mail.urls"))
     
 ]
 

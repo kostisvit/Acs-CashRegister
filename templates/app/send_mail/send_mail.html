@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h1 class="mt-5 mb-3" style="text-align: center; color: #0D6EFD;">Φόρμα αποστολής Email</h1>
+
+          {% if error_message %}
+          <div class="alert alert-primary" role="alert">
+            {{error_message}}
+          </div>
+          {% endif %}
+
+          {% if form %}
+          <form method="POST" action ="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form|crispy}}
+            <br>
+          <button type="submit" class="btn btn-primary">Αποστολή Email</button>
+          </form>
+          {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

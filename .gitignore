@@ -137,4 +137,6 @@ dmypy.json
 # txt files
 commands.txt
 
+# logs
+/logs
 .DS_Store
