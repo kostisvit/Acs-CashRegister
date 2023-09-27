@@ -14,10 +14,6 @@ class TimeStampMixin(models.Model):
         abstract = True
 
 
-def client_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
-    return 'client_{0}/{1}'.format(instance.customer, filename)
-
 
 class Cash(TimeStampMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -42,7 +38,6 @@ class Cash(TimeStampMixin):
         return str(self.customer)
 
 def cash_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'cash_{0}/{1}'.format(instance.customer, filename)
 
 class UploadFile(TimeStampMixin):

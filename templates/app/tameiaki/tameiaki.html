@@ -58,7 +58,7 @@
               <th>Κατάσταση</th>
               <th>Ημ. Αναβάθ.</th>
               <th>AES_KEY</th>
-              <th>Έγγραφο</th>
+              <!-- <th>Έγγραφο</th> -->
               <th>Σημειώσεις</th>
               <th>Ενέργειες</th>
           </tr>
@@ -83,19 +83,23 @@
             {% endif %}
             <td>{{ obj.update_date|default_if_none:"-"}}</td>
             <td>{{ obj.aes_key|default_if_none:"-"|truncatechars:7 }}</td>
-              {% if obj.file  %}
+              <!-- {% if obj.file  %}
             <td><a href="{{ obj.file.url }}" download><button class="btn btn-warning"><i class="bi bi-file-earmark-arrow-down-fill" style="margin-right: 10px;"></i>Download</button></a></td>
               {% else %}
             <td>-</td>
-              {% endif %}
+              {% endif %} -->
             <td>{{ obj.info|default_if_none:"-"  }}</td>
             {% if obj.status == True %}
             <td><a href="{% url 'edit-cash' obj.id%}"> 
               <span><i class="bi bi-pencil-square" style="color: #726E6D;"></i></span></a>
+                <a href="#"> 
+                <span><i class="bi bi-trash" style="color: #726E6D; margin-left: 15px;"></i></span></a>
             </td>
               {% else %}
               <td><a href="{% url 'edit-cash' obj.id%}"> 
                 <span><i class="bi bi-pencil-square" style="color: white;"></i></span></a>
+                <a href="#"> 
+                  <span><i class="bi bi-pencil-square" style="color: white; margin-left: 15px;"></i></span></a>
               </td>
               {% endif %}
           {% endfor %}    
