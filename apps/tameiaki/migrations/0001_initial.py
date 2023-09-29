@@ -32,7 +32,6 @@ class Migration(migrations.Migration):
                 ('aes_key', encrypted_model_fields.fields.EncryptedCharField(blank=True, null=True)),
                 ('status', models.BooleanField(blank=True, default=True, null=True)),
                 ('info', models.TextField(blank=True, null=True)),
-                ('file', models.FileField(blank=True, default='static/AcsServices.png', null=True, upload_to=tameiaki.models.client_directory_path, validators=[tameiaki.validators.validate_file_extension])),
             ],
             options={
                 'verbose_name': 'Ταμειακές',

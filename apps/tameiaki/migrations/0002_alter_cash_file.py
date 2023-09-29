@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='cash',
             name='file',
-            field=models.FileField(blank=True, null=True, upload_to=tameiaki.models.client_directory_path, validators=[tameiaki.validators.validate_file_extension]),
+            field=models.FileField(blank=True, null=True),
         ),
     ]

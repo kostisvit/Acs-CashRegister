@@ -14,7 +14,6 @@ class TimeStampMixin(models.Model):
         abstract = True
 
 
-
 class Cash(TimeStampMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     customer = models.CharField(max_length=150,null=False,blank=False)
@@ -33,14 +32,18 @@ class Cash(TimeStampMixin):
         verbose_name = 'Ταμειακές'
         verbose_name_plural = 'Ταμειακές'
         ordering = ['customer']
+    
 
     def __str__(self):
         return str(self.customer)
+
+
 
 def cash_directory_path(instance, filename):
     return 'cash_{0}/{1}'.format(instance.customer, filename)
 
 class UploadFile(TimeStampMixin):
+    id = models.UUIDField(default=uuid.uuid4, editable=False,primary_key=True)
     customer = models.CharField(max_length=150,null=False,blank=False)
     file = models.FileField(upload_to=cash_directory_path,validators=[validate_file_extension])
 
