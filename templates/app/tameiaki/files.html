@@ -17,6 +17,7 @@
               <th>Πελάτης</th>
               <th>Αρχείο</th>
               <th>Μέγεθος</th>
+              <th>#</th>
             </tr>
         </thead>
   <tbody>
@@ -25,6 +26,7 @@
       <td>{{obj.customer}}</td>
       <td><a href="{{ obj.file.url }}" download>{{obj.file.name|filename}}</a></td>
       <td>{{obj.file.size|filesizeformat}}</td>
+      <td>{{obj.created_at}}</td>
     {% endfor %}
     </tr>
   </tbody>
