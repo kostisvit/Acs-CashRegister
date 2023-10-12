@@ -6,6 +6,26 @@
 {% block content %}
 
 <body>
+  <form method="get">
+    {% csrf_token %}
+    <div class="well" style="margin-top: 15px;">
+      <div class="row">
+        <div class="form-group col-sm-2 col-md-2">
+          {{ my_Filter.form.customer.label_tag }}
+          {% render_field my_Filter.form.customer class="form-control" %}
+        </div>
+        <div class="form-group col-sm-4 col-md-2">
+          <button type="submit" class="btn btn-warning" style="position: absolute; top:44%;">
+            <span class="fa fa-search"><i class="bi bi-search"></i></span>
+          </button>
+      </div>
+    </div>
+  </form>
+  <div class="float-left" style="color: #726E6D; font-weight:500">
+    <ul>
+      <li>Αρχεία: {{file_count}}</li>
+    </ul>
+  </div>
   <div class="float-right mb-3 mr-5">
     <a href="{% url 'file_upload' %}" class="btn btn-danger btn-sm active" role="button" aria-pressed="true"><i class="bi bi-cloud-upload-fill" style="margin-right: 10px;"></i>Μεταφόρτωση αρχείου</a>
     <a href="#" class="btn btn-info btn-sm active" role="button" aria-pressed="true"><i class="bi bi-envelope-open-fill" style="margin-right: 10px;"></i>Αποστολή Email</a>

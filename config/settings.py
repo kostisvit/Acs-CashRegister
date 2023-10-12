@@ -90,6 +90,7 @@ TEMPLATES = [
                 'tameiaki.context_processor.cash_count',
                 'tameiaki.context_processor.cash_count_online',
                 'tameiaki.context_processor.cash_count_offline',
+                'tameiaki.context_processor.file_count',
             ],
         },
     },

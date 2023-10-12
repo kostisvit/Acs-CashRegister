@@ -1,6 +1,6 @@
 from django import forms
 import django_filters
-from .models import Cash
+from .models import Cash,UploadFile
 
 class CashFilter(django_filters.FilterSet):
     
@@ -12,3 +12,12 @@ class CashFilter(django_filters.FilterSet):
     class Meta:
         model = Cash
         fields = ['customer','cash_model','status']
+
+
+class FileFilter(django_filters.FilterSet):
+
+    customer = django_filters.CharFilter(lookup_expr='icontains', label='Πελάτης')
+
+    class Meta:
+        model = UploadFile
+        fields = ['customer']

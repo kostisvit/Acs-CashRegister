@@ -1,4 +1,4 @@
-from tameiaki.models import Cash
+from tameiaki.models import Cash, UploadFile
     
 def cash_count(request):
     return {
@@ -13,4 +13,9 @@ def cash_count_online(request):
 def cash_count_offline(request):
     return {
         'cash_offline': Cash.objects.filter(status=False).count()
+    }
+
+def file_count(request):
+    return {
+        'file_count': UploadFile.objects.all().count()
     }

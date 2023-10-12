@@ -10,7 +10,7 @@ from .export import Export_data,export_data_as_excel,CashExport
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, FormView
 from django.http import JsonResponse
-from .filters import CashFilter
+from .filters import CashFilter,FileFilter
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -202,3 +202,13 @@ class FileListView(ListView):
     def get(self, request, *args, **kwargs):
         logger.info(f'Accessing the {self.model.__name__} filelist view.')
         return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        my_Filter = FileFilter(self.request.GET, queryset=super().get_queryset())
+        return my_Filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['my_Filter'] = FileFilter(self.request.GET, queryset=self.get_queryset())
+        context['query_params'] = self.request.GET.urlencode()
+        return context
