@@ -33,6 +33,7 @@
     <li>Ταμειακές: {{cash}}</li>
     <li>Online: {{cash_online}}</li>
     <li>Offline: {{cash_offline}}</li>
+    <li>Voucher: {{voucher_count}}</li>
   </ul>
 </div>
 <div class="float-right mb-3 mr-5">
@@ -58,7 +59,7 @@
               <th>Κατάσταση</th>
               <th>Ημ. Αναβάθ.</th>
               <th>AES_KEY</th>
-              <!-- <th>Έγγραφο</th> -->
+              <th>Voucher</th>
               <th>Σημειώσεις</th>
               <th>Ενέργειες</th>
           </tr>
@@ -83,11 +84,11 @@
             {% endif %}
             <td>{{ obj.update_date|default_if_none:"-"}}</td>
             <td>{{ obj.aes_key|default_if_none:"-"|truncatechars:7 }}</td>
-              <!-- {% if obj.file  %}
-            <td><a href="{{ obj.file.url }}" download><button class="btn btn-warning"><i class="bi bi-file-earmark-arrow-down-fill" style="margin-right: 10px;"></i>Download</button></a></td>
-              {% else %}
-            <td>-</td>
-              {% endif %} -->
+            {% if obj.voucher == True %}
+            <td><i class="bi bi-check-circle" style="color: green; -webkit-text-stroke: 1px;"></i></td>
+            {% else %}
+            <td><i class="bi bi-x-circle" style="-webkit-text-stroke: 1px;"></i></td>
+            {% endif %}
             <td>{{ obj.info|default_if_none:"-"  }}</td>
             {% if obj.status == True %}
             <td><a href="{% url 'edit-cash' obj.id%}"> 

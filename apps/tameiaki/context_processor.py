@@ -19,3 +19,8 @@ def file_count(request):
     return {
         'file_count': UploadFile.objects.all().count()
     }
+
+def voucher_count(request):
+    return {
+        'voucher_count': Cash.objects.filter(voucher=True).count()
+    }

@@ -6,6 +6,7 @@ from datetime import datetime
 from .validators import validate_file_extension
 
 
+
 class TimeStampMixin(models.Model):
     created_at = models.DateTimeField(default=datetime.now)
     updated_at = models.DateTimeField(auto_now=True)
@@ -25,6 +26,7 @@ class Cash(TimeStampMixin):
     update_date = models.DateField(null=True,blank=True)
     aes_key = EncryptedCharField(max_length=150,null=True, blank=True)
     status = models.BooleanField(default=True, blank=True,null=True)
+    voucher = models.BooleanField(default=False,blank=True,null=True)
     info = models.TextField(blank=True,null=True)
 
     
