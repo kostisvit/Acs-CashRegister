@@ -54,7 +54,7 @@
               <th>Μοντέλο Ταμ.</th>
               <th>Αρ. Μητρώου</th>
               <th>Ημ. Δήλωσης</th>
-              <th>OS Version</th>
+              <th>Prev. OS Version</th>
               <th>New OS Version</th>
               <th>Κατάσταση</th>
               <th>Ημ. Αναβάθ.</th>
@@ -82,7 +82,7 @@
             {% else %}
             <td style=" font-weight: bolder;">Offline
             {% endif %}
-            <td>{{ obj.update_date|default_if_none:"-"}}</td>
+            <td>{{ obj.update_date|default_if_none:"-"|date:"d-m-Y"}}</td>
             <td>{{ obj.aes_key|default_if_none:"-"|truncatechars:7 }}</td>
             {% if obj.voucher == True %}
             <td><i class="bi bi-check-circle" style="color: green; -webkit-text-stroke: 1px;"></i></td>
