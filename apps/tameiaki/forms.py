@@ -13,7 +13,7 @@ class CashForm(forms.ModelForm):
     new_os = forms.CharField(max_length=100, label='New OS Version')
     update_date = forms.DateField(required=False,label='Ημ. Αναβάθμισης')
     status = forms.BooleanField(label='Κατάσταση(Ενεργή)',initial=True,required=False)
-    voucher = forms.BooleanField(label='Voucher_Κατάσταση',initial=False,required=False)
+    voucher = forms.BooleanField(label='Voucher_Εξαργύρωση',initial=False,required=False)
     aes_key = forms.CharField(max_length=100, label='AES Key', required=False)
     info = forms.CharField(widget=forms.Textarea, label='Σημειώσεις', required=False)
 

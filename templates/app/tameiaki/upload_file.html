@@ -4,7 +4,7 @@
 {% block content %}
   <div class="container">
     <body>
-      <h1 class="mt-5" style="color:dodgerblue; text-align:center;">Μεταφόρτωση αρχείων</h1>
+      <h1 class="mt-5" style="color:dodgerblue; text-align:center;">Μεταφόρτωση αρχείου</h1>
       <form method="post" class="mt-5" enctype="multipart/form-data">
           {% csrf_token %}
           {{ form|crispy }}
