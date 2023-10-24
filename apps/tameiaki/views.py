@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 from .models import Cash,UploadFile
-from .forms import CashForm, ClientForm, FileUploadForm
+from .forms import CashForm, ClientForm, FileUploadForm, CashUpdateForm
 from .export import Export_data,export_data_as_excel,CashExport
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, FormView
@@ -103,11 +103,11 @@ class CreatePostView(CreateView):
 @method_decorator(login_required, name='dispatch')
 class CashUpdateView(UpdateView):
     model = Cash
-    form_class = CashForm
+    form_class = CashUpdateForm
     success_url = '/'
     template_name = 'app/edit/tameiaki_edit.html'
 
-
+    
     def form_valid(self, form):
         obj = self.get_object()
         try:
