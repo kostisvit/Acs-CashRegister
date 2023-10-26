@@ -48,7 +48,7 @@ class CashForm(forms.ModelForm):
 
 
 class CashUpdateForm(forms.ModelForm):
-    customer = forms.ChoiceField(choices=[],label='Πελάτης', disabled=True)
+    customer = forms.ChoiceField(choices=[],label='Πελάτης')
     cash_model = forms.CharField(max_length=100, label='Μοντέλο Ταμειακής')
     cash_number = forms.CharField(max_length=100, label='Αριθμός Μητρώου')
     register_date = forms.DateField(required=False,label='Ημ. Δήλωσης')

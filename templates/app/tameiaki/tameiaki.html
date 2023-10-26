@@ -87,7 +87,7 @@
             <td style=" font-weight: bolder;">Offline
             {% endif %}
             <td>{{ obj.update_date|default_if_none:"-"|date:"d-m-Y"}}</td>
-            {% if obj.aes_key is not None %}
+            {% if obj.aes_key %}
             <td><i class="bi bi-key-fill" style="color: orangered; -webkit-text-stroke: 1px;"></i></td>
             {% else %}
             <td>-</td>
