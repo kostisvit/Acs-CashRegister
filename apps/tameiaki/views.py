@@ -15,40 +15,67 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.views import APIView
 
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-# API GET request Customers
-@login_required
-def customers(request):
-    try:
-        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customer-api(without container)
-        #convert reponse data into json
-        data = json.loads(response.content)
-        count = len(data)
-        paginator = Paginator(data, 9) # 3 posts in each page
-        data = request.GET.get('page')
+class CustomerListView(APIView):
+    def get(self, request):
         try:
-            data = paginator.page(data)
-        except PageNotAnInteger:
-            # If page is not an integer deliver the first page
-            data = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range deliver last page of results
-            data = paginator.page(paginator.num_pages)
-        context = {
-            'data': data,
-            'page': data,
-            'count':count
-        }
-    except requests.exceptions.RequestException as e:
-        # Handle the error here
-        error = {'message': f'Error connecting to external API: {str(e)}'}
-        return JsonResponse(error, status=500)
+            data = requests.get('http://host.docker.internal:8280/customer-api')
+            data = json.loads(data.content)
+            count = len(data)
+            paginator = Paginator(data, 9)
+            data = request.GET.get('page')
+            try:
+                data = paginator.page(data)
+            except PageNotAnInteger:
+                data = paginator.page(1)
+            except EmptyPage:
+                data = paginator.page(paginator.num_pages)
+            context = {
+                'data': data,
+                'page': data,
+                'count': count,
+            }
+        except requests.exceptions.RequestException as e:
+        #Handle the error here
+            error = {'message': f'Error connecting to external API: {str(e)}'}
+            return JsonResponse(error, status=500)
+        return render(request, "app/tameiaki/customer.html", context)
+    
 
-    return render(request, "app/tameiaki/customer.html", context)
+# API GET request Customers
+# @login_required
+# def customers(request):
+#     try:
+#         response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customer-api(without container)
+#         #convert reponse data into json
+#         data = json.loads(response.content)
+#         count = len(data)
+#         paginator = Paginator(data, 9) # 3 posts in each page
+#         data = request.GET.get('page')
+#         try:
+#             data = paginator.page(data)
+#         except PageNotAnInteger:
+#             # If page is not an integer deliver the first page
+#             data = paginator.page(1)
+#         except EmptyPage:
+#             # If page is out of range deliver last page of results
+#             data = paginator.page(paginator.num_pages)
+#         context = {
+#             'data': data,
+#             'page': data,
+#             'count':count
+#         }
+#     except requests.exceptions.RequestException as e:
+#         # Handle the error here
+#         error = {'message': f'Error connecting to external API: {str(e)}'}
+#         return JsonResponse(error, status=500)
+
+#     return render(request, "app/tameiaki/customer.html", context)
 
 
 # LOAD all tameiakes

@@ -1,8 +1,18 @@
 {% extends "base.html" %}
+{% load widget_tweaks %}
+{% block tab-title %}API-Customers | {% endblock %}
 {% block content %}
+<div style="text-align: center; margin-top: 10px; color: indigo;">
+<h2>External API Data</h2>
+</div>
 <div class="float-right mb-3 mr-5">
-  <a href="{% url 'customer-new' %}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">Νέος Πελάτης</a>
-  <a href="{% url 'export_data_client' %}" class="btn btn-success btn-sm active" role="button" aria-pressed="true">Εξαγωγή</a>
+  <a href="{% url 'customer-new' %}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true"><i class="bi bi-person-plus-fill" style="margin-right: 10px;"></i>Νέος Πελάτης</a>
+  <a href="{% url 'export_data_client' %}" class="btn btn-success btn-sm active" role="button" aria-pressed="true"><i class="bi bi-cloud-download-fill" style="margin-right: 10px;"></i>Εξαγωγή</a>
+</div>
+<div class="float-left" style="color: #726E6D; font-weight:500">
+  <ul>
+    <li>Πελάτες: {{count}}</li>
+  </ul>
 </div>
 <div id="customerDiv" class="mt-5" style="padding-left:20px; padding-right:20px;">
   <table class="table">
@@ -10,7 +20,7 @@
           <tr>
               <th>Όνομα</th>
               <th>Επώνυμο</th>
-              <th>Τίτλος Εταιρείας</th>
+              <th>Εταιρεία</th>
               <th>Κατηγορία</th>
               <th>Διεύθυνση</th>
               <th>Email</th>
@@ -21,12 +31,9 @@
       </thead>
       <tbody>
           {% for item in data %}
-          {% if forloop.last %}
-          <p style="padding-left:20px; color: #726E6D; font-weight:500">Πελάτες: {{count}}</p>
-          {% endif %}
           <tr>
-            <td>{{ item.first_name|title }}</td>
-            <td>{{ item.last_name|title }}</td>
+            <td>{{ item.first_name|default_if_none:"-"|title }}</td>
+            <td>{{ item.last_name|default_if_none:"-"|title }}</td>
             <td>{{ item.company_name|title }}</td>
             <td>{{ item.company_type|title }}</td>
             <td>{{ item.company_address|title }}</td>
@@ -36,6 +43,7 @@
             <td><a href="#"> 
               <span><i class="bi bi-pencil-square" style="color: #726E6D;"></i></span></a>
             </td>
+          </tr>
           {% endfor %}    
       </tbody>
   </table>

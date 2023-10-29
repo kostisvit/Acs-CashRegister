@@ -4,7 +4,7 @@ from .models import Cash
 class CashResource(resources.ModelResource):
     customer = fields.Field(
        attribute="customer",
-       column_name="Pet Name",
+       column_name="Customer",
        
    )
 

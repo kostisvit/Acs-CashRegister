@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import CashExport,Export_data,export_data_as_excel,CustomerFormView,FileListView,FileUploadView
+from .views import CashExport,Export_data,export_data_as_excel,CustomerFormView,FileListView,FileUploadView,CustomerListView
 
 
 
@@ -8,7 +8,7 @@ from .views import CashExport,Export_data,export_data_as_excel,CustomerFormView,
 
 
 urlpatterns = [
-    path('cash-register/api/customers', views.customers, name='customer'),
+    path('cash-register/api/customers', CustomerListView.as_view(), name='customer'),
     path('cash-register/api/customer/new', CustomerFormView.as_view(), name='customer-new'),
     path('cash-register/cash', views.TameiakiFilterView.as_view(), name='tameiaki'),
     path('cash-register/cash/new', views.CreatePostView.as_view(), name='new-cash'),

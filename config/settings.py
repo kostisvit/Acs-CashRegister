@@ -54,8 +54,6 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'django_filters',
     'widget_tweaks',
-    'django_otp',
-    'django_otp.plugins.otp_totp',
     'allauth',
     'allauth.account',
 ]

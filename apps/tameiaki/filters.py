@@ -16,14 +16,6 @@ class CashFilter(django_filters.FilterSet):
         model = Cash
         fields = ['customer','cash_model','status']
 
-class CustomerFilter(django_filters.FilterSet):
-    
-    customer = django_filters.CharFilter(lookup_expr='icontains', label='Πελάτης')
-    
-    class Meta:
-        model = Cash
-        fields = ['customer']
-
 
 class FileFilter(django_filters.FilterSet):
 
