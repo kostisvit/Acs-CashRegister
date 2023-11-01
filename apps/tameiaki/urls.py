@@ -18,5 +18,5 @@ urlpatterns = [
     path('cash-register/cash/update/<uuid:pk>', views.CashUpdateView.as_view(), name='edit-cash'),
     # export
     path('cash-register/cash/export', views.Export_data, name='export_data'),
-    path('cash-register/customers/export', views.export_data_as_excel, name='export_data_client'),
+    path('cash-register/api-customers/export', views.export_data_as_excel, name='export_data_client'),
 ]
