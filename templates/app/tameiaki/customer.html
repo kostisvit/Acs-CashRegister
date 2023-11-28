@@ -26,6 +26,7 @@
               <th>Email</th>
               <th>ΑΦΜ</th>
               <th>Τηλ. Επικοιν.</th>
+              <th>Κατάσταση</th>
               <th>Ενέργειες</th>
           </tr>
       </thead>
@@ -40,6 +41,11 @@
             <td style="color: #007BFF;">{{ item.company_email|default_if_none:"-" }}</td>
             <td>{{ item.company_afm }}</td>
             <td>{{ item.phone_number }}</td>
+            {% if item.status == True %}
+            <td style="color:green">Online</td>
+            {% else %}
+            <td style=" font-weight: bolder;">Offline
+            {% endif %}
             <td><a href="#"> 
               <span><i class="bi bi-pencil-square" style="color: #726E6D;"></i></span></a>
             </td>

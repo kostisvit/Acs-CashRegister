@@ -103,8 +103,7 @@ class ClientForm(forms.Form):
     company_email = forms.EmailField(label='Email',required=False)
     company_afm = forms.CharField(label='ΑΦΜ',max_length=150,validators=[RegexValidator(regex=r'^\d{9}$',message='Please enter exactly 9 digits.',code='invalid_number')])
     phone_number = forms.CharField(label='Τηλ. Επικοινωνίας',max_length=150)
-
-
+    status = forms.BooleanField(label='Κατάσταση')
 
 
 #Upload file form

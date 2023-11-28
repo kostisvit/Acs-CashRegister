@@ -168,7 +168,8 @@ class CustomerFormView(FormView):
             'company_address': form.cleaned_data['company_address'],
             'company_afm': form.cleaned_data['company_afm'],
             'company_email': form.cleaned_data['company_email'],
-            'phone_number': form.cleaned_data['phone_number']
+            'phone_number': form.cleaned_data['phone_number'],
+            'status': form.cleaned_data['status']
 
         }
         response = requests.post(api_url, data=data)
