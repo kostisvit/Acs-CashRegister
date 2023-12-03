@@ -45,37 +45,33 @@ class CustomerListView(APIView):
             error = {'message': f'Error connecting to external API: {str(e)}'}
             return JsonResponse(error, status=500)
         return render(request, "app/tameiaki/customer.html", context)
-    
 
-# API GET request Customers
-# @login_required
-# def customers(request):
-#     try:
-#         response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customer-api(without container)
-#         #convert reponse data into json
-#         data = json.loads(response.content)
-#         count = len(data)
-#         paginator = Paginator(data, 9) # 3 posts in each page
-#         data = request.GET.get('page')
-#         try:
-#             data = paginator.page(data)
-#         except PageNotAnInteger:
-#             # If page is not an integer deliver the first page
-#             data = paginator.page(1)
-#         except EmptyPage:
-#             # If page is out of range deliver last page of results
-#             data = paginator.page(paginator.num_pages)
-#         context = {
-#             'data': data,
-#             'page': data,
-#             'count':count
-#         }
-#     except requests.exceptions.RequestException as e:
-#         # Handle the error here
-#         error = {'message': f'Error connecting to external API: {str(e)}'}
-#         return JsonResponse(error, status=500)
 
-#     return render(request, "app/tameiaki/customer.html", context)
+#Count online customers from api request
+def get_api_customers_count():
+    api_url = 'http://host.docker.internal:8280/customer-api'  # Replace with your API endpoint
+    response = requests.get(api_url)
+
+    if response.status_code == 200:
+        data = response.json()
+        filtered_data = [item for item in data if item.get('status', True)]  # Filter based on condition
+        count = len(filtered_data)  # Count the filtered items
+        return count
+    else:
+        return 0
+
+#Count online customers from api request
+def get_api_offline_customers_count():
+    api_url = 'http://host.docker.internal:8280/customer-api'  # Replace with your API endpoint
+    response = requests.get(api_url)
+
+    if response.status_code == 200:
+        data = response.json()
+        filtered_data = [item for item in data if not item.get('status', False)]  # Filter based on condition
+        count = len(filtered_data)  # Count the filtered items
+        return count
+    else:
+        return 0
 
 
 # LOAD all tameiakes

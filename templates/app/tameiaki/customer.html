@@ -12,6 +12,8 @@
 <div class="float-left" style="color: #726E6D; font-weight:500">
   <ul>
     <li>Πελάτες: {{count}}</li>
+    <li style="color: green;">Online: {{ api_filtered_customers_count }}</li>
+    <li style="color: red;">Offline: {{ api_filtered_offline_customers_count }}</li>
   </ul>
 </div>
 <div id="customerDiv" class="mt-5" style="padding-left:20px; padding-right:20px;">
@@ -44,7 +46,7 @@
             {% if item.status == True %}
             <td style="color:green">Online</td>
             {% else %}
-            <td style=" font-weight: bolder;">Offline
+            <td style=" font-weight: bolder; color: red;">Offline
             {% endif %}
             <td><a href="#"> 
               <span><i class="bi bi-pencil-square" style="color: #726E6D;"></i></span></a>

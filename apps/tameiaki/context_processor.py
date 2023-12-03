@@ -1,4 +1,5 @@
 from tameiaki.models import Cash, UploadFile
+from .views import get_api_customers_count,get_api_offline_customers_count
     
 def cash_count(request):
     return {
@@ -24,3 +25,13 @@ def voucher_count(request):
     return {
         'voucher_count': Cash.objects.filter(voucher=True).count()
     }
+
+
+def api_filtered_customers_count(request):
+    count = get_api_customers_count()
+    return {'api_filtered_customers_count': count}
+
+
+def api_filtered_offline_customers_count(request):
+    count = get_api_offline_customers_count()
+    return {'api_filtered_offline_customers_count': count}
