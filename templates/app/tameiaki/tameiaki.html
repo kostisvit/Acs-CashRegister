@@ -2,6 +2,13 @@
 {% load widget_tweaks %}
 {% block tab-title %}Ταμειακές | {% endblock %}
 {% block content %}
+
+<style>
+.tbrows{
+  text-align: center;
+}
+</style>
+
 <body>
 <form method="get">
   {% csrf_token %}
@@ -38,6 +45,7 @@
     <li>Online: {{cash_online}}</li>
     <li>Offline: {{cash_offline}}</li>
     <li>Voucher: {{voucher_count}} / {{cash_online}}</li>
+    <li>POS Connected: {{pos_connection_count}} / {{cash_online}}</li>
   </ul>
 </div>
 <div class="float-right mb-3 mr-5">
@@ -53,7 +61,7 @@
 <div id="cashDiv" class="mt-5" >
   <table class="table">
       <thead>
-          <tr>
+          <tr style="text-align: center;">
               <th>Πελάτης</th>
               <th>Μοντέλο Ταμ.</th>
               <th>Αρ. Μητρώου</th>
@@ -64,6 +72,7 @@
               <th>Ημ. Αναβάθ.</th>
               <th>AES_KEY</th>
               <th>Voucher</th>
+              <th>POS Status</th>
               <th>Σημειώσεις</th>
               <th>Ενέργειες</th>
           </tr>
@@ -94,8 +103,15 @@
             {% endif %}
             {% if obj.voucher == True %}
             <td><i class="bi bi-check-circle" style="color: green; -webkit-text-stroke: 1px;"></i></td>
-            {% else %}
+            {% elif obj.voucher == False %}
             <td><i class="bi bi-x-circle" style="-webkit-text-stroke: 1px;"></i></td>
+            {% elif obj.voucher == None %}
+            <td style="-webkit-text-stroke: 1px;">-</td>
+            {% endif %}
+            {% if obj.pos_connect == True %}
+            <td><i class="bi bi-lightbulb-fill" style="color: green; "></i></td>
+            {% else %}
+            <td><i class="bi bi-lightbulb-fill" style="color: red;"></i></td>
             {% endif %}
             <td>{{ obj.info|default_if_none:"-"  }}</td>
             {% if obj.status == True %}

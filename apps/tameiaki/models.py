@@ -27,6 +27,7 @@ class Cash(TimeStampMixin):
     aes_key = EncryptedCharField(max_length=150,null=True, blank=True)
     status = models.BooleanField(default=True, blank=True,null=True)
     voucher = models.BooleanField(default=False,blank=True,null=True)
+    pos_connect = models.BooleanField(default=False, blank=True, null=True)
     info = models.TextField(blank=True,null=True)
 
     

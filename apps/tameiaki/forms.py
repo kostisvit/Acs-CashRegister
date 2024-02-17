@@ -14,6 +14,7 @@ class CashForm(forms.ModelForm):
     update_date = forms.DateField(required=False,label='Ημ. Αναβάθμισης')
     status = forms.BooleanField(label='Κατάσταση(Ενεργή)',initial=True,required=False)
     voucher = forms.BooleanField(label='Voucher_Εξαργύρωση',initial=False,required=False)
+    pos_connect = forms.BooleanField(label='Σύνδεση POS',initial=False,required=False)
     aes_key = forms.CharField(max_length=100, label='AES Key', required=False)
     info = forms.CharField(widget=forms.Textarea, label='Σημειώσεις', required=False)
 
@@ -44,7 +45,7 @@ class CashForm(forms.ModelForm):
 
     class Meta:
         model = Cash
-        fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','update_date','status','voucher','aes_key','info']
+        fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','update_date','status','voucher','pos_connect','aes_key','info']
 
 
 class CashUpdateForm(forms.ModelForm):
@@ -57,6 +58,7 @@ class CashUpdateForm(forms.ModelForm):
     update_date = forms.DateField(required=False,label='Ημ. Αναβάθμισης')
     status = forms.BooleanField(label='Κατάσταση(Ενεργή)',initial=True,required=False)
     voucher = forms.BooleanField(label='Voucher_Εξαργύρωση',initial=False,required=False)
+    pos_connect = forms.BooleanField(label='Σύνδεση POS',initial=False,required=False)
     aes_key = forms.CharField(max_length=100, label='AES Key', required=False)
     info = forms.CharField(widget=forms.Textarea, label='Σημειώσεις', required=False)
 
@@ -87,7 +89,7 @@ class CashUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Cash
-        fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','update_date','status','voucher','aes_key','info']
+        fields = ['customer','cash_model', 'cash_number','register_date','old_os','new_os','update_date','status','voucher','pos_connect','aes_key','info']
 
 
 

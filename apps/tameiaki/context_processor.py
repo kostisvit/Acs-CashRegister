@@ -26,6 +26,11 @@ def voucher_count(request):
         'voucher_count': Cash.objects.filter(voucher=True).count()
     }
 
+def pos_connection_count(request):
+    return {
+        'pos_connection_count': Cash.objects.filter(pos_connect=True).count()
+    }
+
 
 def api_filtered_customers_count(request):
     count = get_api_customers_count()

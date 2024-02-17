@@ -90,6 +90,7 @@ TEMPLATES = [
                 'tameiaki.context_processor.cash_count_offline',
                 'tameiaki.context_processor.file_count',
                 'tameiaki.context_processor.voucher_count',
+                'tameiaki.context_processor.pos_connection_count',
                 'tameiaki.context_processor.api_filtered_customers_count',
                 'tameiaki.context_processor.api_filtered_offline_customers_count',
             ],
@@ -105,10 +106,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'production': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.getenv('DATABASE_NAME'),
         'USER': os.getenv('DATABASE_USER'),
@@ -118,7 +115,6 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = DATABASES['default' if DEBUG else 'production']
 
 
 # Password validation
