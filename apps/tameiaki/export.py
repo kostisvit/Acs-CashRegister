@@ -82,12 +82,12 @@ def export_data_as_excel(request):
     sheet = workbook.active
     
     # Write headers to the first row
-    headers = ['Όνομα','Επώνυμο','Επιχείριση','Έίδος Επιχ.','Διεύθυνση','Email','ΑΦΜ','Τηλέφωνο Επικ.']
+    headers = ['Όνομα','Επώνυμο','Επιχείριση','Έίδος Επιχ.','Διεύθυνση','Email','ΑΦΜ','Κατάσταση','Τηλέφωνο Επικ.']
     sheet.append(headers)
 
     # Write data to subsequent rows
     for item in data:
-        row = [item['first_name'],item['last_name'],item['company_name'],item['company_type'],item['company_address'],item['company_email'],item['company_afm'],item['phone_number']]
+        row = [item['first_name'],item['last_name'],item['company_name'],item['company_type'],item['company_address'],item['company_email'],item['company_afm'],item['status'],item['phone_number']]
         sheet.append(row)
 
     # Set the appropriate response headers for Excel file download
