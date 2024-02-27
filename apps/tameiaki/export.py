@@ -21,7 +21,7 @@ class CashExport(View):
         worksheet = workbook.add_sheet('Cash')
 
         # Write headers
-        headers = ['Πελάτης', 'Μοντέλο Ταμ.', 'Αρ. Μητρώου','Ημ. Δήλωσης','OS Version','New OS Version','Κατάσταση','AES_Key','Σημειώσεις']
+        headers = ['Πελάτης', 'Μοντέλο Ταμ.', 'Αρ. Μητρώου','Ημ. Δήλωσης','OS Version','New OS Version','Κατάσταση','AES_Key','Voucher','POS Status','Σημειώσεις']
         for col, header in enumerate(headers):
             worksheet.write(0, col, header)
 
@@ -36,7 +36,9 @@ class CashExport(View):
             worksheet.write(row, 5, cash.new_os)
             worksheet.write(row, 6, cash.status)
             worksheet.write(row, 7, cash.aes_key)
-            worksheet.write(row, 8, cash.info)
+            worksheet.write(row, 8, cash.voucher)
+            worksheet.write(row, 9, cash.pos_connect)
+            worksheet.write(row, 10, cash.info)
             
             row += 1
 
