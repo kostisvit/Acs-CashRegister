@@ -6,11 +6,13 @@ class CashFilter(django_filters.FilterSet):
     
     CHOICES = ((True, 'Online'), (False, 'Offline'))
     VOUCHER_CHOICES = ((True, 'Voucher'), (False, 'No Voucher'))
+    POS_CHOICES = ((True, 'Connected'), (False, 'No Connected'))
     
     customer = django_filters.CharFilter(lookup_expr='icontains', label='Πελάτης')
     cash_model = django_filters.CharFilter(lookup_expr='icontains', label='Ταμειακή')
     status = django_filters.ChoiceFilter(choices=CHOICES, label='Κατάσταση')
     voucher = django_filters.ChoiceFilter(choices=VOUCHER_CHOICES, label='Voucher')
+    pos_connect = django_filters.ChoiceFilter(choices=POS_CHOICES, label='POS')
     
     class Meta:
         model = Cash
