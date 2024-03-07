@@ -24,7 +24,7 @@ logger.setLevel(logging.INFO)
 class CustomerListView(APIView):
     def get(self, request):
         try:
-            data = requests.get('http://host.docker.internal:8280/customer-api')
+            data = requests.get('http://192.168.88.119:8280/customer-api')
             data = json.loads(data.content)
             count = len(data)
             paginator = Paginator(data, 9)
@@ -49,7 +49,7 @@ class CustomerListView(APIView):
 
 #Count online customers from api request
 def get_api_customers_count():
-    api_url = 'http://host.docker.internal:8280/customer-api'  # Replace with your API endpoint
+    api_url = 'http://192.168.88.119:8280/customer-api'  # Replace with your API endpoint
     response = requests.get(api_url)
 
     if response.status_code == 200:
@@ -62,7 +62,7 @@ def get_api_customers_count():
 
 #Count online customers from api request
 def get_api_offline_customers_count():
-    api_url = 'http://host.docker.internal:8280/customer-api'  # Replace with your API endpoint
+    api_url = 'http://192.168.88.119:8280/customer-api'  # Replace with your API endpoint
     response = requests.get(api_url)
 
     if response.status_code == 200:
@@ -106,7 +106,7 @@ class CreatePostView(CreateView):
     
     def form_valid(self, form):
         try:
-            response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+            response = requests.get('http://192.168.88.119:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
             api_id = response.json()
             instance = form.save(commit=False)
             instance.customer = api_id
@@ -134,7 +134,7 @@ class CashUpdateView(UpdateView):
     def form_valid(self, form):
         obj = self.get_object()
         try:
-            response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+            response = requests.get('http://192.168.88.119:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
             api_id = response.json()
             instance = form.save(commit=False)
             instance.customer = api_id
@@ -155,7 +155,7 @@ class CustomerFormView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        api_url = 'http://host.docker.internal:8280/api/customer-new'
+        api_url = 'http://192.168.88.119:8280/customer-api'
         data = {
             'first_name': form.cleaned_data['first_name'],
             'last_name': form.cleaned_data['last_name'],
@@ -191,7 +191,7 @@ class FileUploadView(FormView):
         for uploaded_file in file:
             instance = UploadFile(file=uploaded_file)
 
-        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+        response = requests.get('http://192.168.88.119:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
         api_id = response.json()
         instance = form.save(commit=False)
         instance.customer = api_id

@@ -37,7 +37,7 @@ class CashForm(forms.ModelForm):
             )
 
     def get_dropdown_options(self):
-        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+        response = requests.get('http://192.168.88.119:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
         if response.status_code == 200:
             options = response.json()
             return  [(option['company_name'], option['company_name']) for option in options]
@@ -81,7 +81,7 @@ class CashUpdateForm(forms.ModelForm):
             )
 
     def get_dropdown_options(self):
-        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+        response = requests.get('http://192.168.88.119:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
         if response.status_code == 200:
             options = response.json()
             return  [(option['company_name'], option['company_name']) for option in options]
@@ -124,7 +124,7 @@ class FileUploadForm(forms.ModelForm):
         self.fields['customer'].choices = options
 
     def get_dropdown_options(self):
-        response = requests.get('http://host.docker.internal:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+        response = requests.get('http://192.168.88.119:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
         if response.status_code == 200:
             options = response.json()
             return  [(option['company_name'], option['company_name']) for option in options]
