@@ -23,12 +23,12 @@ def file_count(request):
 
 def voucher_count(request):
     return {
-        'voucher_count': Cash.objects.filter(voucher=True).count()
+        'voucher_count': Cash.objects.filter(voucher=True,status=True).count()
     }
 
 def pos_connection_count(request):
     return {
-        'pos_connection_count': Cash.objects.filter(pos_connect=True).count()
+        'pos_connection_count': Cash.objects.filter(pos_connect=True,status=True).count()
     }
 
 
