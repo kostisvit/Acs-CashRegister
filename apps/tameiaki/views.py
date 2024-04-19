@@ -16,12 +16,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
-from django.contrib.auth.mixins import PermissionRequiredMixin,UserPassesTestMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+
+@method_decorator(login_required, name='dispatch')
 class CustomerListView(APIView):
     def get(self, request):
         try:
