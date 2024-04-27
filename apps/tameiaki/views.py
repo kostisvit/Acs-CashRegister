@@ -16,11 +16,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
+
+@method_decorator(login_required, name='dispatch')
 class CustomerListView(APIView):
     def get(self, request):
         try:
@@ -98,7 +101,8 @@ class TameiakiFilterView(ListView):
 
 # Create new tameiaki entry
 @method_decorator(login_required, name='dispatch')
-class CreatePostView(CreateView):
+class CreatePostView(PermissionRequiredMixin,CreateView):
+    permission_required = 'tameiaki.add_cash'
     model = Cash
     form_class = CashForm
     success_url = reverse_lazy('tameiaki')
@@ -124,7 +128,8 @@ class CreatePostView(CreateView):
 
 # Update view tameiaki
 @method_decorator(login_required, name='dispatch')
-class CashUpdateView(UpdateView):
+class CashUpdateView(PermissionRequiredMixin,UpdateView):
+    permission_required = 'tameiaki.change_cash'
     model = Cash
     form_class = CashUpdateForm
     success_url = '/'
@@ -179,7 +184,9 @@ class CustomerFormView(FormView):
 
 
 #Upload file
-class FileUploadView(FormView):
+@method_decorator(login_required, name='dispatch')
+class FileUploadView(PermissionRequiredMixin,FormView):
+    permission_required = 'tameiaki.upload_file'
     model = UploadFile
     template_name = 'app/tameiaki/upload_file.html'
     form_class = FileUploadForm

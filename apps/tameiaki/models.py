@@ -4,7 +4,7 @@ from django.urls import reverse
 from encrypted_model_fields.fields import EncryptedCharField
 from datetime import datetime
 from .validators import validate_file_extension
-
+from django.contrib.auth.models import Permission
 
 
 class TimeStampMixin(models.Model):
@@ -35,6 +35,7 @@ class Cash(TimeStampMixin):
         verbose_name = 'Ταμειακές'
         verbose_name_plural = 'Ταμειακές'
         ordering = ['customer']
+
     
 
     def __str__(self):
@@ -54,3 +55,6 @@ class UploadFile(TimeStampMixin):
         verbose_name = 'Αρχεία'
         verbose_name_plural = 'Αρχεία'
         db_table = 'CashFiles'
+        permissions = [
+            ("upload_file", "Can upload file (upload-file)"),
+        ]
