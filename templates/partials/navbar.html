@@ -15,7 +15,7 @@
 </style>
 
 <nav class="navbar navbar-expand-lg">
-  <a class="navbar-brand" style="color: #0062CC; font-weight: bolder;" href="#">AcsServices - {% if user.is_authenticated %} {{ user.username }} {% else %} Anonymous User {% endif %}</a>
+  <a class="navbar-brand" style="color: #0062CC; font-weight: bolder;" href="#">AcsServices - {% if user.is_authenticated %} {{ user.username }} {% else %} Guest User {% endif %}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

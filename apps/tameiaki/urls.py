@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import CashExport,Export_data,export_data_as_excel,CustomerFormView,FileListView,FileUploadView,CustomerListView
+from .views import CashExport,Export_data,export_data_as_excel,CustomerFormView,FileListView,FileUploadView,CustomerListView,external_api_view
 
 
 
@@ -19,4 +19,6 @@ urlpatterns = [
     # export
     path('cash-register/cash/export', views.Export_data, name='export_data'),
     path('cash-register/api-customers/export', views.export_data_as_excel, name='export_data_client'),
+    # api search
+    path('external-api/', external_api_view, name='external-api'),
 ]
