@@ -17,6 +17,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 logger = logging.getLogger(__name__)
@@ -220,6 +221,7 @@ class FileUploadView(PermissionRequiredMixin,FormView):
 
 
 # Display files
+@method_decorator(login_required, name='dispatch')
 class FileListView(ListView):
     model = UploadFile
     template_name = 'app/tameiaki/files.html'
@@ -243,3 +245,23 @@ class FileListView(ListView):
         context['my_Filter'] = FileFilter(self.request.GET, queryset=self.get_queryset())
         context['query_params'] = self.request.GET.urlencode()
         return context
+
+
+@login_required
+def external_api_view(request):
+    url = 'http://host.docker.internal:8280/customer-api'  # Replace with the actual URL of the external API
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        query = request.GET.get('query', '').lower()
+        if query:
+            data = [item for item in data if item.get('company_afm') and query in item['company_afm'].lower()]
+  # Adjust this based on your data structure
+        return JsonResponse(data, safe=False)
+    else:
+        return JsonResponse({'error': 'Failed to fetch data'}, status=response.status_code)
+
+# @login_required
+# def search_view(request):
+#     return render(request, 'test.html')
