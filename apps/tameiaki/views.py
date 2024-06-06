@@ -247,9 +247,10 @@ class FileListView(ListView):
         return context
 
 
+# Search api view
 @login_required
 def external_api_view(request):
-    url = 'http://host.docker.internal:8280/customer-api'  # Replace with the actual URL of the external API
+    url = 'http://host.docker.internal:8280/customer-api' 
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -257,11 +258,6 @@ def external_api_view(request):
         query = request.GET.get('query', '').lower()
         if query:
             data = [item for item in data if item.get('company_afm') and query in item['company_afm'].lower()]
-  # Adjust this based on your data structure
         return JsonResponse(data, safe=False)
     else:
         return JsonResponse({'error': 'Failed to fetch data'}, status=response.status_code)
-
-# @login_required
-# def search_view(request):
-#     return render(request, 'test.html')
