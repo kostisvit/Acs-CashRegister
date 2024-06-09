@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.core.paginator import Paginator, EmptyPage,PageNotAnInteger
 from .models import Cash,UploadFile
 from .forms import CashForm, ClientForm, FileUploadForm, CashUpdateForm
-from .export import Export_data,export_data_as_excel,CashExport
+from .export import Export_data,export_data_as_excel,CashExport,download_json_api_customer
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView, FormView
 from django.http import JsonResponse
@@ -18,7 +18,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.views import APIView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+from django.conf import settings
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -27,8 +27,9 @@ logger.setLevel(logging.INFO)
 @method_decorator(login_required, name='dispatch')
 class CustomerListView(APIView):
     def get(self, request):
+        api_url = settings.API_URL
         try:
-            data = requests.get('http://192.168.88.119:8280/customer-api')
+            data = requests.get(api_url)
             data = json.loads(data.content)
             count = len(data)
             paginator = Paginator(data, 9)
@@ -53,7 +54,7 @@ class CustomerListView(APIView):
 
 #Count online customers from api request
 def get_api_customers_count():
-    api_url = 'http://192.168.88.119:8280/customer-api'  # Replace with your API endpoint
+    api_url = settings.API_URL  # Replace with your API endpoint
     response = requests.get(api_url)
 
     if response.status_code == 200:
@@ -66,7 +67,7 @@ def get_api_customers_count():
 
 #Count online customers from api request
 def get_api_offline_customers_count():
-    api_url = 'http://192.168.88.119:8280/customer-api'  # Replace with your API endpoint
+    api_url = settings.API_URL  # Replace with your API endpoint
     response = requests.get(api_url)
 
     if response.status_code == 200:
@@ -110,8 +111,9 @@ class CreatePostView(PermissionRequiredMixin,CreateView):
     template_name = 'app/new_records/tameiaki_new.html'
     
     def form_valid(self, form):
+        api_url = settings.API_URL
         try:
-            response = requests.get('http://192.168.88.119:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+            response = requests.get(api_url) # http://127.0.0.1:8280/customers-api(without container)
             api_id = response.json()
             instance = form.save(commit=False)
             instance.customer = api_id
@@ -139,8 +141,9 @@ class CashUpdateView(PermissionRequiredMixin,UpdateView):
     
     def form_valid(self, form):
         obj = self.get_object()
+        api_url = settings.API_URL
         try:
-            response = requests.get('http://192.168.88.119:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+            response = requests.get(api_url) # http://127.0.0.1:8280/customers-api(without container)
             api_id = response.json()
             instance = form.save(commit=False)
             instance.customer = api_id
@@ -161,7 +164,8 @@ class CustomerFormView(FormView):
     success_url = '/'
 
     def form_valid(self, form):
-        api_url = 'http://192.168.88.119:8280/customer-api'
+        api_url = settings.API_URL
+        #api_url = 'http://host.docker.internal:8280/api/customer-new'
         data = {
             'first_name': form.cleaned_data['first_name'],
             'last_name': form.cleaned_data['last_name'],
@@ -194,12 +198,13 @@ class FileUploadView(PermissionRequiredMixin,FormView):
     success_url = '/'
 
     def form_valid(self, form):
+        api_url = settings.API_URL
         logger.info('File upload process started.')
         file = self.request.FILES.getlist('file')
         for uploaded_file in file:
             instance = UploadFile(file=uploaded_file)
 
-        response = requests.get('http://192.168.88.119:8280/customer-api') # http://127.0.0.1:8280/customers-api(without container)
+        response = requests.get(api_url) # http://127.0.0.1:8280/customers-api(without container)
         api_id = response.json()
         instance = form.save(commit=False)
         instance.customer = api_id
@@ -250,8 +255,9 @@ class FileListView(ListView):
 # Search api view
 @login_required
 def external_api_view(request):
-    url = 'http://host.docker.internal:8280/customer-api' 
-    response = requests.get(url)
+    api_url = settings.API_URL
+    #url = 'http://host.docker.internal:8280/customer-api' 
+    response = requests.get(api_url)
 
     if response.status_code == 200:
         data = response.json()

@@ -1,11 +1,12 @@
-import xlwt, requests
+import xlwt, requests, json
 from django.http import HttpResponse
 from django.views import View
 from .models import Cash
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.shortcuts import render
 from .resources import CashResource
 from openpyxl import Workbook
+from django.conf import settings
 
 class CashExport(View):
     def get(self, request, *args, **kwargs):
@@ -73,8 +74,8 @@ def Export_data(request):
 
 # Export pelates, retrieve data from external api
 def export_data_as_excel(request):
-    # Make a request to the external API and retrieve the data
-    response = requests.get('http://host.docker.internal:8280/customer-api')
+    api_url = settings.API_URL
+    response = requests.get(api_url)
     data = response.json()
 
     # Create an Excel workbook and select the active sheet
@@ -98,3 +99,30 @@ def export_data_as_excel(request):
     workbook.save(response)
 
     return response
+
+
+
+
+def download_json_api_customer(request):
+    # The API URL you want to fetch the JSON data from
+    api_url = settings.API_URL
+
+    # Fetch the JSON data from the API
+    response = requests.get(api_url)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse the JSON content
+        data = response.json()
+
+        # Convert the JSON data to a string
+        json_data = json.dumps(data, indent=4)
+
+        # Create a HttpResponse with the JSON data
+        response = HttpResponse(json_data, content_type='application/json')
+        response['Content-Disposition'] = 'attachment; filename="customers.json"'
+
+        return response
+    else:
+        # If the request was not successful, return an error response
+        return JsonResponse({'error': 'Failed to fetch data from the API'}, status=response.status_code)
