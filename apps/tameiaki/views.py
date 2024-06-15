@@ -263,7 +263,12 @@ def external_api_view(request):
         data = response.json()
         query = request.GET.get('query', '').lower()
         if query:
-            data = [item for item in data if item.get('company_afm') and query in item['company_afm'].lower()]
+            data = [
+                item for item in data
+                if (item.get('company_afm') and query in item['company_afm'].lower()) or
+                (item.get('last_name') and query in item['last_name'].lower()) or
+                (item.get('company_name') and query in item['company_name'].lower())
+            ]
         return JsonResponse(data, safe=False)
     else:
         return JsonResponse({'error': 'Failed to fetch data'}, status=response.status_code)
