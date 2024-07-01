@@ -28,7 +28,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:6560","http://acsmaz.ddns.net:6560"]
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:6560","http://acsmaz.ddns.net:6560","127.0.0.1:6560"]
 
 
 # Application definition
